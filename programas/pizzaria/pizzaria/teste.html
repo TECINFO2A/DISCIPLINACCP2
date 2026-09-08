@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizzaria do Gordo - Sumé, PB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" type="image/png" href="https://github.com/user-attachments/assets/b6cbf35d-93a5-4eb7-ad70-63a79c657b7a">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{--red:#c0181a;--red-dk:#8b0f11;--green:#1b6b2e;--green-dk:#0f4a1e;--gold:#d4a017;--gold-lt:#f0c040;--cream:#fbf6ee;--cream-dk:#f0e8d8;--white:#fff;--charcoal:#1c1c1c;--dark:#111;--gray:#777;--border:#e2d8cc}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:"DM Sans",sans-serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden}body.lock{overflow:hidden}a{text-decoration:none;color:inherit}img{display:block;max-width:100%}button,input,textarea{font:inherit}.flag-stripe{height:5px;background:linear-gradient(90deg,var(--green) 33.3%,#fff 33.3% 66.6%,var(--red) 66.6%)}
+header{position:fixed;top:0;left:0;width:100%;z-index:100;background:#fff;border-bottom:3px solid var(--red);box-shadow:0 2px 18px #0002}.navbar{max-width:1400px;height:80px;margin:auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:18px}.logo-wrap{display:flex;align-items:center;gap:12px}.logo-circle{width:56px;height:56px;border-radius:50%;background:#fff;border:2px solid var(--red);display:grid;place-items:center;flex:none;overflow:hidden}.logo-circle svg{width:100%;height:100%}.logo-txt{font-family:"Bebas Neue";font-size:1.5rem;letter-spacing:3px;line-height:1.05}.logo-txt span{color:var(--red)}.logo-txt em{display:block;color:var(--green);font-style:normal;font-size:.95rem;letter-spacing:2px}.nav-links{display:flex;gap:28px}.nav-links a{font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}.nav-links a:hover{color:var(--red)}
+.btn-cart,.btn-primary,.btn-wa,.btn-size,.btn-add-sz,.btn-confirm,.pix-wa{border:0;border-radius:6px;cursor:pointer;font-weight:800;letter-spacing:1px;text-transform:uppercase;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:.2s}.btn-cart{position:relative;background:var(--red);color:#fff;padding:10px 20px;font-size:.76rem}.btn-cart:hover{background:var(--red-dk)}.cart-badge,.cart-dot,.qty-pill{background:var(--green);color:#fff;border-radius:50%;display:grid;place-items:center;font-weight:800}.cart-badge{position:absolute;top:-6px;right:-6px;width:18px;height:18px;font-size:.6rem}.cart-dot{width:18px;height:18px;font-size:.58rem}
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;background:var(--dark);overflow:hidden}.hero-bg,.hero-overlay{position:absolute;inset:0}.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.28}.hero-overlay{background:linear-gradient(110deg,rgba(192,24,26,.93),rgba(192,24,26,.7) 34%,rgba(28,28,28,.66) 64%,rgba(27,107,46,.64))}.hero-content{position:relative;z-index:1;max-width:1400px;margin:auto;padding:140px 40px 80px;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;width:100%}.hero-eyebrow{display:inline-flex;gap:8px;align-items:center;background:#ffffff20;border:1px solid #ffffff45;padding:7px 16px;border-radius:4px;color:#fff;font-size:.7rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}.hero h1{font-family:"Bebas Neue";font-size:6.5rem;line-height:.88;letter-spacing:2px;color:#fff;margin-bottom:22px}.hero h1 em{display:block;font-family:"Playfair Display";font-size:5rem;color:var(--gold-lt)}.hero-desc{max-width:450px;color:#ffffffc7;line-height:1.8;margin-bottom:36px}.hero-btns{display:flex;gap:12px;flex-wrap:wrap}.btn-primary{background:#fff;color:var(--red);padding:15px 30px;border:2px solid #fff;font-size:.82rem}.btn-primary:hover{background:var(--gold-lt);border-color:var(--gold-lt);color:#111}.btn-wa{background:#25d366;color:#fff;padding:15px 30px;border:2px solid #25d366;font-size:.82rem}.hero-logo-wrap{width:270px;height:270px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 0 0 4px #ffffff40,0 0 80px #c0181a73;overflow:hidden}.hero-logo-wrap svg{width:100%;height:100%}.hero-right{display:flex;flex-direction:column;align-items:center;gap:22px}.hero-stats{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%;border:1px solid #ffffff29;border-radius:10px;overflow:hidden}.stat-box{background:#ffffff14;text-align:center;padding:22px 16px}.stat-num{font-family:"Bebas Neue";font-size:2.8rem;color:var(--gold-lt);line-height:1}.stat-lbl{font-size:.65rem;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff9e}
+.container{max-width:1400px;margin:auto;padding:0 40px}.menu-section{padding:100px 0;border-top:4px solid var(--red)}.menu-hd{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:42px}.sec-eye{font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:8px}.sec-eye:before{content:"";width:24px;height:2px;background:var(--red)}.sec-title{font-family:"Bebas Neue";font-size:3.8rem;line-height:.95;letter-spacing:2px}.sec-title span{color:var(--red)}.menu-hd-right{max-width:320px;color:var(--gray);font-size:.9rem;line-height:1.7;text-align:right}.tabs-bar{display:flex;gap:3px;background:#fff;border:2px solid var(--border);border-radius:8px;padding:4px;width:fit-content;margin-bottom:40px;box-shadow:0 2px 8px #0001;flex-wrap:wrap}.tab-btn{padding:11px 22px;border:0;border-radius:5px;background:transparent;color:var(--gray);cursor:pointer;font-size:.74rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:7px}.tab-btn:hover{background:var(--cream-dk);color:#111}.tab-btn.active{background:var(--red);color:#fff}.tab-btn.tab-doce.active{background:#7b3f00}.tab-btn.tab-beb.active{background:var(--green)}.tab-btn.tab-cart.active{background:#111}.tab-panel{display:none}.tab-panel.active{display:block}
+.pizzas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:18px}.pizza-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px #0001;cursor:pointer;transition:.25s}.pizza-card:hover{transform:translateY(-4px);border-color:var(--red);box-shadow:0 14px 36px #c0181a21}.pizza-img{height:185px;position:relative;overflow:hidden;background:#1a0a05}.pizza-img img{width:100%;height:100%;object-fit:cover;transition:.45s}.pizza-card:hover img{transform:scale(1.06)}.pizza-tag{position:absolute;top:10px;left:10px;z-index:1;background:var(--red);color:#fff;font-size:.58rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:3px}.pizza-tag.green{background:var(--green)}.pizza-tag.gold{background:var(--gold);color:#111}.pizza-body{padding:14px 16px}.pizza-body h3{font-family:"Playfair Display";font-size:1.08rem;margin-bottom:4px}.pizza-body p{font-size:.78rem;line-height:1.55;color:var(--gray)}.pizza-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 16px;border-top:1px solid var(--border);background:#fbf6ee99}.pizza-price{font-family:"Bebas Neue";font-size:1.5rem;color:var(--red)}.pizza-price small{display:block;font-family:"DM Sans";font-size:.6rem;color:var(--gray);letter-spacing:1px;text-transform:uppercase}.btn-size{background:var(--red);color:#fff;padding:9px 14px;font-size:.7rem}.btn-size.doce{background:#7b3f00}.btn-size:hover{filter:brightness(.9)}
+.drinks-wrap{display:flex;flex-direction:column;gap:32px}.dcat-title{font-family:"Bebas Neue";font-size:1.7rem;letter-spacing:2px;margin-bottom:12px;display:flex;align-items:center;gap:10px}.drinks-list{display:grid;grid-template-columns:1fr 1fr;gap:7px}.drink-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px 14px}.drink-name{font-size:.84rem;font-weight:700}.drink-right{display:flex;align-items:center;gap:10px}.drink-price{font-family:"Bebas Neue";font-size:1.15rem;color:var(--red)}.btn-dadd{width:28px;height:28px;border:0;border-radius:4px;background:var(--green);color:#fff;cursor:pointer}
+#tab-cart{background:#fff;border:1px solid var(--border);border-radius:12px;padding:28px}.cart-layout{display:grid;grid-template-columns:1fr 370px;gap:28px;align-items:start}.cart-empty{text-align:center;padding:60px 20px}.cart-empty i{font-size:3.5rem;color:var(--border);margin-bottom:14px}.cart-col-title{font-family:"Bebas Neue";font-size:1.7rem;letter-spacing:2px;display:flex;align-items:center;gap:10px;margin-bottom:18px}.qty-pill{width:26px;height:26px;font-size:.9rem}.cart-item{display:flex;align-items:center;gap:14px;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}.citem-img{width:64px;height:64px;border-radius:8px;overflow:hidden;flex:none;background:#1a0a05}.citem-info{flex:1}.citem-info strong{display:block;font-size:.87rem}.citem-info span{font-size:.76rem;color:var(--gray)}.citem-price{font-family:"Bebas Neue";font-size:1.45rem;color:var(--red);min-width:76px;text-align:right}.qty-ctrl{display:flex;align-items:center;gap:8px;margin-top:8px}.qty-btn{width:26px;height:26px;border-radius:4px;border:1.5px solid var(--border);background:#fff;cursor:pointer;font-weight:800}.qty-btn:hover{background:var(--red);border-color:var(--red);color:#fff}.pay-box{position:sticky;top:96px;background:var(--cream);border:2px solid var(--border);border-radius:14px;overflow:hidden}.pay-hd{background:#111;padding:18px 22px;display:flex;align-items:center;gap:10px;color:#fff}.pay-hd i{color:var(--gold-lt)}.pay-hd h4{font-family:"Bebas Neue";font-size:1.4rem;letter-spacing:2px}.pay-bd{padding:22px}.sum-row{display:flex;justify-content:space-between;color:var(--gray);font-size:.86rem;margin-bottom:7px}.sum-row.total{border-top:2px solid var(--border);padding-top:12px;margin-top:4px;color:#111;font-weight:800}.sum-row.total .val{font-family:"Bebas Neue";font-size:1.7rem;color:var(--red)}
+.receive-block{background:#fff;border:2px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px}.receive-hd{font-size:.65rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#111;display:flex;gap:7px;align-items:center;margin-bottom:12px}.receive-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.ropt{border:2px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;background:#fff;transition:.2s}.ropt:hover{border-color:#aaa}.ropt.sel.delivery{border-color:var(--green);background:#1b6b2e12}.ropt.sel.buscar{border-color:var(--gold);background:#d4a01714}.ropt i{display:block;font-size:1.4rem;color:var(--gray);margin-bottom:6px;transition:.2s}.ropt.sel.delivery i{color:var(--green)}.ropt.sel.buscar i{color:var(--gold)}.ropt-lbl{display:block;font-size:.68rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--gray)}.ropt.sel .ropt-lbl{color:#111}.ropt-sub{display:block;font-size:.6rem;color:var(--gray);margin-top:2px;line-height:1.3}
+.info-chip{display:flex;align-items:center;gap:8px;border-radius:8px;padding:11px 14px;font-size:.8rem;font-weight:600;margin-bottom:14px}.info-chip.green{background:#1b6b2e12;border:1.5px solid #1b6b2e33;color:var(--green-dk)}.info-chip.gold{background:#d4a01714;border:1.5px solid #d4a01744;color:#7a5f00}.info-chip.red{background:#c0181a0d;border:1.5px solid #c0181a33;color:var(--red-dk)}
+.addr-block{background:#1b6b2e0d;border:1.5px solid #1b6b2e33;border-radius:10px;padding:16px;margin:0 0 18px}.addr-hd{font-size:.65rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--green);display:flex;gap:7px;margin-bottom:12px}.addr-g2{display:grid;grid-template-columns:1fr 80px;gap:7px;margin-bottom:7px}.fl-lbl,.pay-lbl,.obs-lbl{display:block;font-size:.64rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);margin-bottom:4px}.pay-lbl,.obs-lbl{color:#111;margin-bottom:10px}.req{color:var(--red)}.fl-inp{width:100%;padding:9px 11px;border-radius:6px;border:1.5px solid var(--border);background:#fff;outline:0}.fl-inp:focus{border-color:var(--green)}.pay-methods{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:18px}.popt{background:#fff;border:2px solid var(--border);border-radius:8px;padding:11px;text-align:center;cursor:pointer}.popt.sel{border-color:var(--green);background:#1b6b2e12}.popt i{display:block;font-size:1.35rem;color:var(--gray);margin-bottom:5px}.popt.sel i{color:var(--green)}.popt span{font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase}.troco-block{background:#fff8dccd;border:1.5px solid #d4a01759;border-radius:10px;padding:13px 15px;margin:-8px 0 14px}.troco-lbl{font-size:.63rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#7a5f00;margin-bottom:9px}.troco-chips{display:flex;gap:6px;flex-wrap:wrap}.tchip{border:1.5px solid #d4a01766;background:#fff;border-radius:20px;padding:6px 12px;font-size:.78rem;font-weight:800;cursor:pointer}.tchip.sel{background:var(--gold);border-color:var(--gold);color:#111}.obs-inp{min-height:70px;resize:vertical;margin-bottom:16px}.btn-confirm{width:100%;background:var(--green);color:#fff;padding:15px;font-size:.86rem}.btn-confirm:disabled{opacity:.45;cursor:not-allowed}.pay-hint{text-align:center;font-size:.72rem;line-height:1.5;color:var(--gray);margin-top:9px}
+.reviews-section{padding:80px 0;background:#fff}.reviews-hd{text-align:center;margin-bottom:44px}.reviews-hd .sec-eye{justify-content:center}.reviews-hd .sec-eye:before{display:none}.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.review{background:var(--cream);border:1.5px solid var(--border);border-radius:12px;padding:26px}.stars{color:var(--red);margin-bottom:12px}.review-txt{color:var(--gray);font-size:.88rem;line-height:1.8;font-style:italic;margin-bottom:18px}.reviewer{display:flex;align-items:center;gap:11px}.r-av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--red);color:#fff;font-size:.76rem;font-weight:800}.r-name{font-weight:800;font-size:.86rem}.r-sub{color:var(--gray);font-size:.75rem}.info-bar{background:#111;padding:44px 0;border-top:4px solid var(--red);border-bottom:4px solid var(--green)}.info-grid{max-width:1400px;margin:auto;padding:0 40px;display:grid;grid-template-columns:repeat(4,1fr)}.info-item{text-align:center;padding:0 24px;border-right:1px solid #ffffff1a}.info-item:last-child{border:0}.info-item i{font-size:1.7rem;color:var(--red);margin-bottom:10px}.info-item strong{display:block;font-family:"Bebas Neue";font-size:1.4rem;color:#fff}.info-item span{font-size:.77rem;color:#ffffff8c}
+footer{background:#111;padding:64px 0 26px}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px}.footer-logo-wrap{width:56px;height:56px;border-radius:50%;background:#fff;border:2px solid var(--red);display:grid;place-items:center;overflow:hidden;margin-bottom:14px}.footer-logo-wrap svg{width:100%;height:100%}.footer-brand p,.footer-col a,.footer-col p{color:#777;font-size:.84rem;line-height:2.1}.footer-brand p{max-width:260px;line-height:1.8;margin-bottom:18px}.social-links{display:flex;gap:8px}.social-links a{width:36px;height:36px;border:1px solid #333;border-radius:6px;display:grid;place-items:center;color:#777}.social-links a:hover{background:var(--red);border-color:var(--red);color:#fff}.footer-col h4{font-size:.67rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);margin-bottom:18px}.footer-col a{display:block}.footer-bottom{border-top:1px solid #222;padding-top:20px;display:flex;justify-content:space-between;gap:12px}.footer-bottom p{color:#555;font-size:.77rem}.footer-bottom span{color:var(--red)}
+.wa-float{position:fixed;right:26px;bottom:26px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;font-size:1.45rem;box-shadow:0 8px 22px #25d36659}.toast{position:fixed;left:50%;bottom:90px;z-index:500;transform:translateX(-50%) translateY(16px);opacity:0;pointer-events:none;background:var(--green);color:#fff;border-radius:8px;padding:11px 22px;font-size:.86rem;font-weight:700;display:flex;align-items:center;gap:7px;box-shadow:0 8px 22px #0003;transition:.25s}.toast.show{opacity:1;transform:translateX(-50%)}
+.sz-overlay,.pix-ov{position:fixed;inset:0;z-index:300;background:#000a;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.25s}.sz-overlay.open,.pix-ov.open{opacity:1;pointer-events:auto}.sz-modal,.pix-modal{background:#fff;border-radius:16px;width:100%;box-shadow:0 24px 60px #0005;overflow:hidden;max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);display:flex;flex-direction:column}.sz-modal{max-width:480px}.pix-modal{max-width:360px}.sz-hd,.pix-hd{background:linear-gradient(135deg,var(--red-dk),var(--red));padding:18px 22px;display:flex;justify-content:space-between;align-items:flex-start;color:#fff;flex:none}.pix-hd{background:linear-gradient(135deg,var(--green-dk),var(--green));align-items:center}.sz-hd h3,.pix-hd h3{font-family:"Bebas Neue";font-size:1.45rem;letter-spacing:2px;display:flex;gap:8px}.sz-pname{display:block;font-family:"Playfair Display";font-style:italic;font-size:.9rem;color:#ffffffd9;margin-top:3px}.mod-x,.pix-close{border:0;border-radius:50%;background:#ffffff33;color:#fff;width:32px;height:32px;cursor:pointer;flex:none}.sz-bd,.pix-bd{padding:22px;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.size-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}.sopt{border:2px solid var(--border);border-radius:10px;padding:12px 6px;text-align:center;cursor:pointer;background:#fff}.sopt:hover,.sopt.sel{border-color:var(--red);background:#c0181a0f}.sopt svg{width:38px;height:38px;margin:0 auto 5px}.sopt-ltr{display:block;font-family:"Bebas Neue";font-size:1.5rem;color:var(--red);line-height:1}.sopt-sl{display:block;font-size:.62rem;color:var(--gray)}.sopt-val{display:block;font-family:"Bebas Neue";font-size:1.2rem}.borda-sec{background:#d4a01714;border:1.5px solid #d4a0174d;border-radius:10px;padding:14px;margin-bottom:16px}.borda-title{font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}.borda-chips{display:flex;gap:7px;flex-wrap:wrap}.bchip{border:1.5px solid #d4a01766;background:#fff;border-radius:20px;padding:6px 13px;font-size:.76rem;font-weight:800;cursor:pointer}.bchip.sel{background:var(--gold);border-color:var(--gold);color:#111}.obs-tip{font-size:.74rem;color:var(--gray);background:#1b6b2e0f;border:1px solid #1b6b2e33;border-radius:8px;padding:9px 13px;margin-bottom:14px}.sz-prev{text-align:center;color:var(--gray);font-size:.85rem;margin-bottom:12px}.sz-prev strong{font-family:"Bebas Neue";font-size:1.35rem;color:var(--red)}.btn-add-sz{width:100%;background:var(--green);color:#fff;padding:14px;font-size:.86rem}.btn-add-sz:disabled{opacity:.45;cursor:not-allowed}
+.pix-qr{background:var(--cream);border:2px dashed var(--border);border-radius:12px;padding:18px;text-align:center;margin-bottom:18px}.pix-qr-lbl{font-size:.68rem;color:var(--gray);text-transform:uppercase;letter-spacing:1px;margin-top:6px}.pix-key-box{background:#1b6b2e0f;border:1.5px solid #1b6b2e40;border-radius:10px;padding:13px 15px;margin-bottom:14px}.pix-key-lbl{font-size:.62rem;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-bottom:6px}.pix-key-row{display:flex;gap:9px;align-items:center}.pix-key-val{flex:1;font-size:.82rem;font-weight:800;word-break:break-all}.pix-copy{border:0;border-radius:6px;background:var(--green);color:#fff;padding:7px 13px;cursor:pointer;font-size:.72rem;font-weight:800;text-transform:uppercase;white-space:nowrap}.pix-copy.done{background:#059669}.pix-note{text-align:center;color:var(--gray);font-size:.78rem;line-height:1.6}.pix-wa{width:100%;margin-top:14px;background:#8c5ccc;color:#fff;padding:13px;font-size:.84rem;border:0;border-radius:6px;cursor:pointer;font-weight:800;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none}
+.meio-toggle{background:#d4a01714;border:1.5px solid #d4a0174d;border-radius:10px;padding:14px;margin-bottom:16px}
+.meio-check{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:.83rem;font-weight:700}
+.meio-check input{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+.meio-check i{color:var(--gold)}
+.meio-second{margin-top:12px}
+.meio-second select{cursor:pointer}
+@media(max-width:1100px){.hero-content{grid-template-columns:1fr}.hero-right{display:none}.reviews-grid,.cart-layout{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.info-grid{grid-template-columns:1fr 1fr;gap:20px}.info-item{border-right:0;border-bottom:1px solid #ffffff14;padding-bottom:20px}.pay-box{position:static}.size-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.navbar{height:74px;padding:0 18px}.nav-links{display:none}.logo-circle{width:46px;height:46px}.logo-txt{font-size:1.25rem}.hero-content,.container,.info-grid{padding-left:18px;padding-right:18px}.hero h1{font-size:4rem}.hero h1 em{font-size:3.1rem}.hero-btns{flex-direction:column}.btn-primary,.btn-wa{width:100%}.menu-hd{flex-direction:column;align-items:flex-start}.menu-hd-right{text-align:left}.tabs-bar{width:100%;flex-wrap:wrap}.tab-btn{flex:1;justify-content:center;font-size:.62rem;padding:9px 5px}.pizzas-grid,.drinks-list{grid-template-columns:1fr}.sec-title{font-size:3rem}#tab-cart{padding:14px}.cart-item{flex-wrap:wrap}.citem-price{text-align:left;width:100%}.footer-grid,.info-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column}.addr-g2{grid-template-columns:1fr 85px}.receive-opts{grid-template-columns:repeat(2,1fr)}.sz-overlay,.pix-ov{padding:0;align-items:flex-end}.sz-modal,.pix-modal{border-radius:16px 16px 0 0;max-height:88vh;max-height:88dvh}}
+</style>
+</head>
+<body>
+<div class="flag-stripe"></div>
+<a class="wa-float" href="https://wa.me/5583996384531" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+<div class="toast" id="toast"><i class="fa-solid fa-check"></i><span id="toast-msg"></span></div>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" id="logo-defs">
+  <symbol id="logo-svg" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="50" fill="#c0181a"/>
+    <circle cx="50" cy="50" r="36" fill="#f0c040"/>
+    <line x1="50" y1="14" x2="50" y2="86" stroke="#c0181a" stroke-width="2.2"/>
+    <line x1="14" y1="50" x2="86" y2="50" stroke="#c0181a" stroke-width="2.2"/>
+    <line x1="24" y1="24" x2="76" y2="76" stroke="#c0181a" stroke-width="2.2"/>
+    <line x1="76" y1="24" x2="24" y2="76" stroke="#c0181a" stroke-width="2.2"/>
+    <circle cx="50" cy="50" r="36" fill="none" stroke="#d4620a" stroke-width="5"/>
+    <circle cx="50" cy="50" r="28" fill="#c0181a" opacity="0.55"/>
+    <circle cx="50" cy="50" r="21" fill="#fff" opacity="0.85"/>
+    <circle cx="50" cy="38" r="4.5" fill="#8b0f11"/>
+    <circle cx="41" cy="56" r="4.5" fill="#8b0f11"/>
+    <circle cx="60" cy="56" r="4.5" fill="#8b0f11"/>
+    <text x="50" y="96" text-anchor="middle" font-family="'Bebas Neue', sans-serif" font-size="11" fill="#fff" letter-spacing="1">GORDO</text>
+  </symbol>
+</svg>
+
+<header id="header">
+  <div class="navbar">
+    <a class="logo-wrap" href="#inicio">
+      <div class="logo-circle"><img src="https://github.com/user-attachments/assets/b6cbf35d-93a5-4eb7-ad70-63a79c657b7a" alt=""></div>
+      <div class="logo-txt">PIZZARIA <span>DO</span><em>GORDO</em></div>
+    </a>
+    <nav class="nav-links">
+      <a href="#inicio">Início</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <button class="btn-cart" onclick="openCart()"><i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="cart-badge" id="nav-cart-count">0</span></button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1920&q=80" alt="Pizza"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-eyebrow"><i class="fa-solid fa-fire"></i> Massa artesanal - Forno a lenha - Desde 2008</div>
+      <h1>A MELHOR <em>Pizza</em> DO CARIRI</h1>
+      <p class="hero-desc">Ingredientes frescos, receitas tradicionais e o sabor inconfundível de quem faz com amor desde 2008. Escolha seu tamanho e monte seu pedido.</p>
+      <div class="hero-btns">
+        <a class="btn-primary" href="#cardapio"><i class="fa-solid fa-pizza-slice"></i> Ver Cardápio</a>
+        <a class="btn-wa" href="https://wa.me/5583996384531" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-logo-wrap"><img src="https://github.com/user-attachments/assets/b6cbf35d-93a5-4eb7-ad70-63a79c657b7a" alt=""></div>
+      <div class="hero-stats">
+        <div class="stat-box"><div class="stat-num">17+</div><div class="stat-lbl">Anos de tradição</div></div>
+        <div class="stat-box"><div class="stat-num">40+</div><div class="stat-lbl">Sabores</div></div>
+        <div class="stat-box"><div class="stat-num">5.0</div><div class="stat-lbl">Avaliação</div></div>
+        <div class="stat-box"><div class="stat-num">4</div><div class="stat-lbl">Tamanhos</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-section" id="cardapio">
+  <div class="container">
+    <div class="menu-hd">
+      <div>
+        <div class="sec-eye">Cardápio Completo</div>
+        <h2 class="sec-title">NOSSAS <span>ESPECIALIDADES</span></h2>
+      </div>
+      <p class="menu-hd-right">Clique em qualquer pizza para escolher o tamanho, borda e montar seu pedido.</p>
+    </div>
+    <div class="tabs-bar">
+      <button class="tab-btn active" data-tab="salgadas"><i class="fa-solid fa-pizza-slice"></i> Salgadas</button>
+      <button class="tab-btn tab-doce" data-tab="doces"><i class="fa-solid fa-cookie-bite"></i> Pizzas Doces</button>
+      <button class="tab-btn tab-beb" data-tab="bebidas"><i class="fa-solid fa-wine-bottle"></i> Bebidas</button>
+      <button class="tab-btn tab-cart" id="cart-tab-btn" data-tab="cart"><i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="cart-dot" id="tab-cart-count">0</span></button>
+    </div>
+    <div class="tab-panel active" id="tab-salgadas"><div class="pizzas-grid" id="salgadas-grid"></div></div>
+    <div class="tab-panel" id="tab-doces"><div class="pizzas-grid" id="doces-grid"></div></div>
+    <div class="tab-panel" id="tab-bebidas"><div class="drinks-wrap" id="drinks-wrap"></div></div>
+    <div class="tab-panel" id="tab-cart"><div id="cart-content"></div></div>
+  </div>
+</section>
+
+<section class="reviews-section">
+  <div class="container">
+    <div class="reviews-hd">
+      <div class="sec-eye">Clientes Felizes</div>
+      <h2 class="sec-title">O QUE DIZEM <span>SOBRE NÓS</span></h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review"><div class="stars">★★★★★</div><p class="review-txt">"A melhor pizza de Sumé! Massa perfeita, ingredientes frescos. Não largo mais."</p><div class="reviewer"><div class="r-av">MF</div><div><div class="r-name">Maria Fernanda</div><div class="r-sub">Cliente há 3 anos</div></div></div></div>
+      <div class="review"><div class="stars">★★★★★</div><p class="review-txt">"Pedi o tamanho família e todo mundo amou! A pizza do Gordo não tem igual no Cariri."</p><div class="reviewer"><div class="r-av">JS</div><div><div class="r-name">João Silva</div><div class="r-sub">Cliente há 2 anos</div></div></div></div>
+      <div class="review"><div class="stars">★★★★★</div><p class="review-txt">"Quatro Queijos incrível! Chegou quentinha na hora certa. Recomendo pra todo mundo!"</p><div class="reviewer"><div class="r-av">AC</div><div><div class="r-name">Ana Carolina</div><div class="r-sub">Cliente há 1 ano</div></div></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="info-bar">
+  <div class="info-grid">
+    <div class="info-item"><i class="fa-solid fa-clock"></i><strong>Ter-Dom 18h-24h</strong><span>Fechamos segunda-feira</span></div>
+    <div class="info-item"><i class="fa-solid fa-location-dot"></i><strong>Rua Aleixo Bezerra, 524</strong><span>Centro, Sumé - PB</span></div>
+    <div class="info-item"><i class="fa-solid fa-phone"></i><strong>(83) 99638-4531</strong><span>WhatsApp e ligações</span></div>
+    <div class="info-item"><i class="fa-solid fa-motorcycle"></i><strong>Delivery — R$ 2,00</strong><span>Taxa de entrega</span></div>
+  </div>
+</div>
+
+<footer id="contato">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-wrap"><svg>
+          <img
+          src="https://github.com/user-attachments/assets/b6cbf35d-93a5-4eb7-ad70-63a79c657b7a"/></svg></div>
+        <p>A tradição da pizza artesanal de Sumé. Massa fresca, ingredientes selecionados e muito sabor desde 2008.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/pizzariadogordo_sume?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/5583996384531" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Cardápio</h4><a href="#cardapio" data-footer-tab="salgadas">Pizzas Salgadas</a><a href="#cardapio" data-footer-tab="doces">Pizzas Doces</a><a href="#cardapio" data-footer-tab="bebidas">Bebidas</a><a href="#cardapio" onclick="openCart()">Meu Carrinho</a></div>
+      <div class="footer-col"><h4>Navegação</h4><a href="#inicio">Início</a><a href="#cardapio">Cardápio</a><a href="https://wa.me/5583996384531" target="_blank">Fazer Pedido</a></div>
+      <div class="footer-col"><h4>Contato</h4><p><i class="fa-solid fa-phone"></i> (83) 99638-4531</p><p><i class="fa-brands fa-instagram"></i> @pizzariadogordo_sume</p><p><i class="fa-solid fa-location-dot"></i> Rua Aleixo Bezerra, 524 - Centro, Sumé - PB</p><p><i class="fa-solid fa-clock"></i> Ter-Dom: 18h às 24h</p></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Pizzaria do Gordo - Todos os direitos reservados.</p><p>Feito com <span>♥</span> em Sumé, PB</p></div>
+  </div>
+</footer>
+
+<div class="flag-stripe"></div>
+
+<!-- Modal tamanho -->
+<div class="sz-overlay" id="sz-overlay">
+  <div class="sz-modal">
+    <div class="sz-hd">
+      <div><h3><i class="fa-solid fa-pizza-slice"></i> Escolha o Tamanho</h3><span class="sz-pname" id="sz-pname"></span></div>
+      <button class="mod-x" onclick="closeSzModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="sz-bd">
+      <div class="meio-toggle">
+        <label class="meio-check"><input type="checkbox" id="meio-toggle-chk"><span><i class="fa-solid fa-circle-half-stroke"></i> Fazer meio a meio (2 sabores)</span></label>
+        <div class="meio-second" id="meio-second-wrap" style="display:none">
+          <span class="fl-lbl">2ª metade <span class="req">*</span></span>
+          <select class="fl-inp" id="meio-second-select"></select>
+        </div>
+      </div>
+      <div class="size-grid" id="size-grid"></div>
+      <div class="borda-sec">
+        <div class="borda-title"><i class="fa-solid fa-circle-plus"></i> Borda Recheada (+R$ 5,00)</div>
+        <div class="borda-chips" id="borda-chips"></div>
+      </div>
+      <div class="obs-tip"><i class="fa-solid fa-circle-info" style="color:var(--green)"></i> Cream Cheese em qualquer sabor: +R$ 5,00 - informe nas observações.</div>
+      <div class="sz-prev" id="sz-prev">Selecione um tamanho acima</div>
+      <button class="btn-add-sz" id="btn-add-sz" onclick="confirmSz()" disabled><i class="fa-solid fa-cart-plus"></i> Adicionar ao Carrinho</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Pix -->
+<div class="pix-ov" id="pix-ov">
+  <div class="pix-modal">
+    <div class="pix-hd"><h3><i class="fa-brands fa-pix"></i> Pagar com Pix</h3><button class="pix-close" onclick="closePixModal()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div class="pix-bd">
+      <div class="pix-qr">
+        <img
+          src="https://github.com/user-attachments/assets/d0c72ce8-22ba-44e4-82a4-9342dd616734"
+          alt="QR Code Pix Nubank"
+          style="width:170px;height:170px;border-radius:8px;object-fit:contain;background:#fff;display:block;margin:0 auto">
+        <div id="pix-total" style="margin-top:10px;font-family:'Bebas Neue',sans-serif;font-size:1.55rem;color:var(--green);letter-spacing:1px;text-align:center"></div>
+        <div class="pix-qr-lbl">Escaneie com seu banco para pagar</div>
+      </div>
+      <div class="pix-key-box">
+        <div class="pix-key-lbl">Link de Pagamento Nubank</div>
+        <div class="pix-key-row"><span class="pix-key-val">00020126360014BR.GOV.BCB.PIX0114+55839980335435204000053039865802BR5922Jane Kelly Cezar Silva6009SAO PAULO62140510LNdkc4EK9c6304C77A</span><button class="pix-copy" id="pix-copy-btn" onclick="copyPix()"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+      </div>
+      <p class="pix-note">Após pagar, envie o <strong>comprovante pelo WhatsApp</strong> para confirmar.</p>
+      <a class="pix-wa" href="https://nubank.com.br/cobrar/28kju/6a17d0e0-ffc1-4a8c-b265-ec4a9b16af83" target="_blank" rel="noopener"><i class="fa-brands fa-pix"></i> Abrir link de pagamento</a>
+      <button class="pix-wa" style="margin-top:8px;background:#25d366" onclick="closePixModal();sendWA()"><i class="fa-brands fa-whatsapp"></i> Já paguei - Enviar pedido</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const WA_NUMBER="5583996384531",PIX_KEY="00020126360014BR.GOV.BCB.PIX0114+55839980335435204000053039865802BR5922Jane Kelly Cezar Silva6009SAO PAULO62140510LNdkc4EK9c6304C77A";
+
+const pizzaImages={
+  "Americana Especial":"https://img.magnific.com/vetores-premium/icone-de-fast-food-de-pizza-deliciosa-imagem-centrada-em-angulo-amplo_1323048-102025.jpg?semt=ais_hybrid&w=740&q=80",
+  "A Grega":"https://images.unsplash.com/photo-1700760934249-93efbb574d23?w=600&auto=format&fit=crop&q=60",
+  "A Moda do Pizzaiolo":"https://media.istockphoto.com/id/1305396905/pt/foto/pizza.jpg?s=612x612&w=0&k=20&c=PrC_AvM3BF_NOFRR3t6RqKUT9LkKSItdHCwwrWDq2VQ=",
+  "Atum":"https://media.istockphoto.com/id/1992330667/pt/foto/fish-pizza-with-tomato-sauce-canned-tuna-mozzarella-cheese-and-red-onion-close-up-on-a-wooden.webp?a=1&b=1&s=612x612&w=0&k=20&c=SzlwKFdqEdXnrscidPI0yuMJoNfs2brFaLONwt33goY=",
+  "Atum Especial":"https://media.istockphoto.com/id/1310034035/pt/foto/tuna-pizza-with-tomato-sauce-and-onion.jpg?s=612x612&w=0&k=20&c=8WwXhLTyxR5pD9PgTGDQp3VvohsD0_Maennu254TW0k=",
+  "Bacon":"https://media.istockphoto.com/id/1351340378/pt/foto/pizza.webp?a=1&b=1&s=612x612&w=0&k=20&c=KTx82XWSSsz0j69WL-4MbGGWgptRoaeOnB8fl_K9GuM=",
+  "Baiana":"https://media.istockphoto.com/id/2167548692/pt/foto/hot-pizza-roll-with-tomatoes-cheese-italian-sausages-and-basil-close-up-in-baking-dish.jpg?s=612x612&w=0&k=20&c=XFNVb91219ycjm_oaAB1eJrPKULLlDzmlRPh5k2GESM=",
+  "Bauru":"https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=600&q=80",
+  "Brócolis":"https://media.istockphoto.com/id/1240644156/pt/foto/delicious-broccoli-pizza-served-on-wooden-board-baked-with-mozzarella-broccoli-corn-peas.jpg?s=612x612&w=0&k=20&c=KylJSFlYyM0z2pvYuhGuN03O-tZyTFLktkU9sg11Pxk=",
+  "Caipira":"https://media.istockphoto.com/id/2211954698/pt/foto/pizza-with-mozzarella-cheese-chicken-and-corn-on-a-white-background.jpg?s=612x612&w=0&k=20&c=pPjk49iKaMd_PqEjdTjNUvi1R5aONHafW2P8t_N1CA4=",
+  "Calabresa":"https://images.unsplash.com/photo-1628840042765-356cda07504e?w=600&q=80",
+  "Calabresa Especial":"https://media.istockphoto.com/id/874333208/pt/foto/calabrian-pizza.jpg?s=612x612&w=0&k=20&c=xKY_MPFQ9bn9pxfOVN5mtobFnFdLNvvs59OxuBmsIPY=",
+  "Camarão":"https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80",
+  "Peperonni":"https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=600&q=80",
+  "Carne Seca":"https://media.istockphoto.com/id/1496436867/pt/foto/sun-dried-meat-pizza-beef-jerky.jpg?s=612x612&w=0&k=20&c=3vAlAXzQ0FDTGbEXtgTDEjRMuXYhZD8dxX-yiQEJ8-Q=",
+  "Dois Queijos":"https://media.istockphoto.com/id/1363507900/pt/foto/four-cheese-pizza-brazilian-pizza.jpg?s=612x612&w=0&k=20&c=w2pFF8TGPKHlNIVmhqmK3Li1reqIIjXTcY8tqPY-Ri8=",
+  "Frango Catupiry":"https://media.istockphoto.com/id/1255499562/pt/foto/chicken-pizza-with-catupiry-cheese-in-brazil-it-is-called-chicken-pizza-with-catupiry.jpg?s=612x612&w=0&k=20&c=nLG17ct7SU0vltDRo1eRBf8jAnqO-ao3DBKcE_58FSI=",
+  "Frango com Mussarela":"https://media.istockphoto.com/id/2224949557/pt/foto/whole-cheese-pizza-with-grilled-chicken-unsliced.jpg?s=612x612&w=0&k=20&c=75POwmOszlu8Q01RTo2vB3dQiRXn_YGTnswwvjABhNk=",
+  "Lombo":"https://media.istockphoto.com/id/518397424/pt/foto/pizza-grande.jpg?s=612x612&w=0&k=20&c=upA-KMbua1kSFa4nyqNN-fynMIHa9P1kLZYpOi4bo68=",
+  "Lombo Especial":"https://media.istockphoto.com/id/874346106/pt/foto/smoked-sirloin-pizza-with-cream-cheese-and-tomato.jpg?s=612x612&w=0&k=20&c=b-iRLE22JjIxiBJZVhB9CB9Rh1QLV55Oorm0HJaCHxE=",
+  "Marguerita":"https://media.istockphoto.com/id/1363507816/pt/foto/margherita-pizza-pizza-margarita-with-tomato-basil-garlic-chips-and-mozzarella-cheese.jpg?s=612x612&w=0&k=20&c=5byOJj-sH_N4gKqR0Q36RHGhBeRiq2Ko33G9f_tZTbc=",
+  "Milho":"https://media.istockphoto.com/id/2192343203/pt/foto/a-slice-of-pizza-with-cheese-and-corn-on-it.jpg?s=612x612&w=0&k=20&c=x6iCuXsL8UMzcY8QDVByQ0wHBX8vTCkeMh2alOotwU4=",
+  "Mista":"https://media.istockphoto.com/id/1356163440/pt/foto/delicious-prosciutto-italian-pizza-on-a-marble-surface.jpg?s=612x612&w=0&k=20&c=tb9n4sEgYMb6gyW_OPNGGSU5e8e1tc43pUmuCQPGO_g=",
+  "Mineira":"https://media.istockphoto.com/id/1139749137/pt/foto/cheese-and-chicken-pizza.jpg?s=612x612&w=0&k=20&c=18cT0lgxlD0A8lKaZLDgkViKaLVXgdBr2BrB9s7Lvw0=",
+  "Mussarela":"https://media.istockphoto.com/id/1168754685/pt/foto/pizza-margarita-with-cheese-top-view-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=zOBq4jmDcRY9zauo-sfrBwOPbcTJhnFgavKq5CXmLCo=",
+  "Napolitana":"https://media.istockphoto.com/id/1295797149/pt/foto/neapolitan-pizza-on-black-background.jpg?s=612x612&w=0&k=20&c=EHKtWxyVS8SKAAOmO9aEGlk2H5k0H4djfnEYRKQE0aU=",
+  "Palmito":"https://media.istockphoto.com/id/1286514395/pt/foto/palm-heart-and-cream-cheese-pizza-top-view-on-wood-background-close-up-traditional-brazilian.jpg?s=612x612&w=0&k=20&c=ClUmpYshEBxTh5_3PUTcjvwY2VT6Y-CQP_P-a0wyh7M=",
+  "Palheta":"https://media.istockphoto.com/id/1307252544/pt/foto/brazilian-pizzas.jpg?s=612x612&w=0&k=20&c=txtvazLgOnqD8ClkAe9VZQ8FrStJHn6peCcpBWTz09o=",
+  "Paulista":"https://media.istockphoto.com/id/1240477621/pt/foto/paulista-flavored-pizza-on-wooden-board-made-with-pasta-sliced-tomatoes-mozzarella-cheese.jpg?s=612x612&w=0&k=20&c=SBItY9mxaczbkXUKED3VmsHqN8ogXlahwf-G2Wnmxn8=",
+  "Portuguesa":"https://media.istockphoto.com/id/1363507889/pt/foto/slice-of-portuguese-pizza-portuguese-pizza-is-a-brazilian-pizza-made-from-onion-pepperoni-egg.jpg?s=612x612&w=0&k=20&c=U5_zUoGFASSeFkpckC3cs47tYT_nMWVY-YTEm_bRrYQ=",
+  "Presunto":"https://media.istockphoto.com/id/1192287215/pt/foto/delicious-pizza-with-meat-on-white.jpg?s=612x612&w=0&k=20&c=YduSKGOJZGsb1WttOA6j1Z_m-wVGFEUmyvo5DtfCSbg=",
+  "Quatro Queijos":"https://media.istockphoto.com/id/1744442094/pt/foto/pizza-quattro-fromaggi-on-a-wooden-board-four-cheese-pizza-or-quattro-formaggi-pizza-topped.jpg?s=612x612&w=0&k=20&c=y8AOyIYRC_TjfLBQ5khwKwAmMFYk_daoiS4kCM5dDRY=",
+  "Século XXI":"https://media.istockphoto.com/id/496571982/pt/foto/pizza-servido-no-prato-de-madeira-isolado-no-branco.jpg?s=612x612&w=0&k=20&c=2EKqq2s8OmE5eQUFATSFw57dkljJVpZmLYmoJ1mcmDg=",
+  "Toscana":"https://images.unsplash.com/photo-1716237389458-be18cf75fafe?w=600&auto=format&fit=crop&q=60",
+  "Viena":"https://media.istockphoto.com/id/1285640757/pt/foto/delicious-portuguese-pizza-made-with-ham-pea-egg-heart-of-palm-pepperoni-onion-and-mozzarella.jpg?s=612x612&w=0&k=20&c=cCS9u6_lceuel3TPxTgz6_UZWYKFStzzEgt6n03zmvc=",
+  "Vegetariana":"https://images.unsplash.com/photo-1511689660979-10d2b1aada49?w=600&q=80",
+  "Veneza":"https://images.unsplash.com/photo-1576458088443-04a19bb13da6?w=600&auto=format&fit=crop&q=60",
+  "Você Decide":"https://media.istockphoto.com/id/1175458935/pt/foto/afro-american-man-with-dreadlocks-eating-slice-of-pizza-over-isolated-yellow-background.webp?a=1&b=1&s=612x612&w=0&k=20&c=iIvviPtHtVF9do3tBTG9fMO-lGrQqu3vBUBJSnBl5yQ=",
+  "Salame":"https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=600&q=80",
+  "Premium":"https://media.istockphoto.com/id/1139751219/pt/foto/pizza-with-corn-bacon-chili-onion-pea.jpg?s=612x612&w=0&k=20&c=dqeLX12K9-Qs9T8V9ZgJ-zn9rs4QWKZznrpQvTVqxpY=",
+  "Abacaxi":"https://media.istockphoto.com/id/1024909814/pt/foto/close-up-of-tasty-hawaiian-pizza-with-ham-and-pineapple.jpg?s=612x612&w=0&k=20&c=62LDNZ28ungFXd_YRSSBkVWdtuUOqS1M6G-og7oA0Kg=",
+  "Banana":"https://media.istockphoto.com/id/1328370002/pt/foto/banana-pizza-with-sugar-and-cinnamon-on-wooden-board-brazilian-sweet-pizza.jpg?s=612x612&w=0&k=20&c=JhjrL5hSxmwukOAigrEqPG28tDc-sH0J7MLroPQxOV0=",
+  "Banana com Chocolate":"https://media.istockphoto.com/id/183022333/pt/foto/sobremesa-de-pizza.jpg?s=612x612&w=0&k=20&c=WGCnh2hKwlWToRgZuDHGvLG__Ddv65S3H7h7rKwhkAc=",
+  "Chocolate":"https://media.istockphoto.com/id/2197076618/pt/foto/chocolate-pizza.jpg?s=612x612&w=0&k=20&c=vjzrbWw0NX-Px52DsSpJIdoNftaUCzufLey7CtYaGpQ=",
+  "Prestígio":"https://media.istockphoto.com/id/1276352742/pt/foto/chocolate-pizza-and-grated-coconut.jpg?s=612x612&w=0&k=20&c=wvj0GaWF6gN2F1heN_5SLokhOcI6FTYMFPD-pyTw2Dc=",
+  "Romeu e Julieta":"https://media.istockphoto.com/id/1256219646/pt/foto/romeo-and-juliet-pizza-traditional-brazilian-sweet-pizza-with-sweet-guava-and-cheese.jpg?s=612x612&w=0&k=20&c=cKQx0ycAlowLgV6j4MLwGww3DWgmNvVMxKJ5n0u18TA=",
+  "Sensação":"https://media.istockphoto.com/id/510858582/pt/foto/pizza-de-chocolate.jpg?s=612x612&w=0&k=20&c=HYEaLbeFYVfBJP2diGM730YaUms7PkWHKOmjOxHC78s=",
+  "Beijinho":"https://media.istockphoto.com/id/1910499081/pt/foto/white-chocolate-pizza-with-coconut.jpg?s=612x612&w=0&k=20&c=Njh70qn62HnWGMGu7sWgVMo-vzQ47Dr62uB_BRhqkEc=",
+  "M&Ms":"https://media.istockphoto.com/id/1504179659/pt/foto/delicious-pizza.jpg?s=612x612&w=0&k=20&c=_X_CtIqpVO2_qvkHq7_g2Xv7VUBpRhemz60EmutOyLE=",
+  "Paçoca":"https://media.istockphoto.com/id/1256219712/pt/foto/sweet-pizza-chocolate-pizza-covered-with-chopped-chocolate-candy.jpg?s=612x612&w=0&k=20&c=1FFOKzHgDcQlWRwHI81MAu96fXrwfdiDsaE454TyOlg=",
+  "Brigadeiro":"https://media.istockphoto.com/id/964267588/pt/foto/pizza-de-chocolate.jpg?s=612x612&w=0&k=20&c=S0ZCD9IBEWUVvxif0IXAsWwXF7GV0ojrMZAlRkYixmU="
+};
+
+const salgadas=[
+["Americana Especial","Molho, mussarela, presunto, catupiry, orégano e azeitona","classica"],["A Grega","Molho, mussarela, calabresa, bacon, cheddar, orégano e azeitona","calabresa"],["A Moda do Pizzaiolo","Molho, mussarela, presunto, frango, bacon, catupiry, batata palha, orégano e azeitona","frango","Chef","gold"],["Atum","Molho, mussarela, atum, cebola, orégano e azeitona","atum"],["Atum Especial","Molho, mussarela, atum, catupiry, cebola, orégano e azeitona","atum"],["Bacon","Molho, mussarela, bacon, ovos, cebolas, orégano e azeitona","bacon"],["Baiana","Molho, mussarela, calabresa moída, ovos, pimenta, orégano e azeitona","calabresa","Picante",""],["Bauru","Molho, mussarela, presunto, tomate, orégano e azeitona","classica"],["Brócolis","Molho, mussarela, brócolis, bacon, orégano e azeitona","bacon"],["Caipira","Molho, mussarela, frango, milho, ovos, orégano e azeitona","frango"],["Calabresa","Molho, mussarela, calabresa, cebola, orégano e azeitona","calabresa","Mais Pedida",""],["Calabresa Especial","Molho, mussarela, calabresa, catupiry, cebola, orégano e azeitona","calabresa"],["Camarão","Molho, mussarela, camarão, ovos, catupiry, cebola, orégano e azeitona","premium","Premium","gold"],["Peperonni","Molho, mussarela, peperonni, orégano e azeitona","premium","Premium","gold"],["Carne Seca","Molho, mussarela, charque, ovos, catupiry, cebola, orégano e azeitona","premium","Premium","gold"],["Dois Queijos","Molho, mussarela, catupiry, orégano e azeitona","queijo"],["Frango Catupiry","Molho, mussarela, frango, catupiry, orégano e azeitona","frango","Favorita",""],["Frango com Mussarela","Molho, mussarela, frango, orégano e azeitona","frango"],["Lombo","Molho, mussarela, lombo, cebola, orégano e azeitona","classica"],["Lombo Especial","Molho, mussarela, lombo, catupiry, cebola, orégano e azeitona","classica"],["Marguerita","Molho, mussarela, manjericão, tomate, parmesão e azeitona","marguerita"],["Milho","Molho, mussarela, milho, orégano e azeitona","queijo"],["Mista","Molho, mussarela, presunto, calabresa, orégano e azeitona","calabresa"],["Mineira","Molho, mussarela, frango, bacon, orégano e azeitona","frango"],["Mussarela","Molho, mussarela, orégano e azeitona","queijo"],["Napolitana","Molho, mussarela, tomate, parmesão, orégano e azeitona","marguerita"],["Palmito","Molho, mussarela, palmito, cebola, orégano e azeitona","classica"],["Palheta","Molho, mussarela, frango, catupiry, batata palha, orégano e azeitona","frango"],["Paulista","Molho, mussarela, presunto, frango, milho, ervilha, palmito, orégano e azeitona","frango"],["Portuguesa","Molho, mussarela, presunto, milho, ervilha, ovos, cebola, orégano e azeitona","classica"],["Presunto","Molho, mussarela, presunto, orégano e azeitona","classica"],["Quatro Queijos","Molho, mussarela, gorgonzola, provolone, catupiry, tomate, orégano e azeitona","queijo"],["Século XXI","Molho, mussarela, frango, milho, bacon, catupiry, orégano e azeitona","frango"],["Toscana","Molho, mussarela, calabresa moída, cebola, orégano e azeitona","calabresa"],["Viena","Molho, mussarela, presunto, bacon, catupiry, tomate, orégano e azeitona","classica"],["Vegetariana","Molho, mussarela, palmito, milho, ervilha, ovos, tomate, cebola, orégano e azeitona","classica","Veggie","green"],["Veneza","Molho, mussarela, calabresa, milho, orégano e azeitona","calabresa"],["Você Decide","Recheio de quatro ingredientes à sua escolha","classica","Personalizada","green"],["Salame","Molho, mussarela, salame e um toque de limão, orégano e azeitona","premium","Premium","gold"],["Premium","Molho, calabresa, bacon, molho de alho, barbecue, cebola, tomate e azeitona","premium","Premium","gold"]];
+const doces=[["Abacaxi","Mussarela, abacaxi, mel e canela","doce"],["Banana","Mussarela, banana, leite condensado e canela","doce","Favorita",""],["Banana com Chocolate","Mussarela, banana e chocolate","chocolate"],["Chocolate","Mussarela, chocolate e cereja","chocolate"],["Prestígio","Mussarela, chocolate e coco ralado","chocolate"],["Romeu e Julieta","Mussarela, catupiry e goiabada","doce","Clássica",""],["Sensação","Mussarela, chocolate, ovomaltine e morango","chocolate","Premium","gold"],["Beijinho","Chocolate branco, coco ralado e leite condensado","doce"],["M&Ms","Chocolate com M&Ms","chocolate"],["Paçoca","Chocolate com amendoim","chocolate"],["Brigadeiro","Chocolate e granulado","chocolate"]];
+const drinks=[{cat:"Refrigerantes",ic:"fa-bottle-water",cor:"var(--red)",items:[["Fanta Laranja 2L",15],["Refrigerante Lata",6],["Refrigerante 1L",10],["Guaraná 2L",15],["Coca-Cola 2L",16],["Água Mineral",6]]},{cat:"Sucos Naturais",ic:"fa-blender",cor:"var(--green)",items:[["Suco Acerola",6],["Suco Abacaxi",6],["Suco Cajá",6],["Suco Caju",6],["Suco Graviola",6],["Suco Morango",6],["Suco Uva",6]]},{cat:"Cervejas",ic:"fa-beer-mug-empty",cor:"var(--gold)",items:[["Skol 300ml",5],["Brahma 300ml",5],["Bohemia 300ml",5],["Original 300ml",5],["Budweiser Long Neck",null]]},{cat:"Bebidas & Destilados",ic:"fa-wine-glass",cor:"#8b0000",items:[["Black White (dose)",8],["Cavalo Branco (dose)",10],["Red Label (dose)",12],["Black Label (dose)",16],["Smirnoff",8],["Vinho Morgado (taça)",8],["Vinho Morgado (garrafa)",20]]}];
+const sizes=[{key:"P",slices:"4 fatias",price:28},{key:"M",slices:"6 fatias",price:36},{key:"G",slices:"8 fatias",price:46},{key:"F",slices:"12 fatias",price:56}],bordas=["Sem borda","Catupiry","Cheddar","Chocolate"];
+const allFlavorNames=[...salgadas,...doces].map(p=>p[0]);
+
+const state={
+  cart:[],selectedPay:"",
+  receiveMode:"delivery",
+  addr:{rua:"",numero:"",bairro:"",ref:""},
+  obs:"",troco:"",trocoCustom:"",
+  modal:{name:"",img:"",size:"",price:0,borda:"Sem borda",isMeio:false,flavor2:""}
+};
+
+const DELIVERY_FEE=2;
+const money=v=>"R$ "+Number(v).toFixed(2).replace(".",","),escapeHtml=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])),qs=s=>document.querySelector(s);
+
+function renderPizzas(list,containerId,sweet=false){qs("#"+containerId).innerHTML=list.map(([name,desc,imgKey,tag,tagClass])=>{const image=pizzaImages[name]||"https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80";return `<article class="pizza-card" data-pizza="${escapeHtml(name)}" data-img="${image}"><div class="pizza-img">${tag?`<span class="pizza-tag ${tagClass||""}">${escapeHtml(tag)}</span>`:""}<img src="${image}" alt="${escapeHtml(name)}" loading="lazy"></div><div class="pizza-body"><h3>${escapeHtml(name)}</h3><p>${escapeHtml(desc)}</p></div><div class="pizza-footer"><div class="pizza-price"><small>a partir de</small>R$ 28</div><button class="btn-size ${sweet?"doce":""}" type="button"><i class="fa-solid fa-expand"></i> Tamanhos</button></div></article>`}).join("")}
+function renderDrinks(){qs("#drinks-wrap").innerHTML=drinks.map(g=>`<section><div class="dcat-title"><i class="fa-solid ${g.ic}" style="color:${g.cor}"></i> ${escapeHtml(g.cat)}</div><div class="drinks-list">${g.items.map(([n,p])=>`<div class="drink-item"><span class="drink-name">${escapeHtml(n)}</span><div class="drink-right"><span class="drink-price">${p==null?"A consultar":money(p)}</span>${p==null?"":`<button class="btn-dadd" type="button" data-drink="${escapeHtml(n)}" data-price="${p}"><i class="fa-solid fa-plus"></i></button>`}</div></div>`).join("")}</div></section>`).join("")}
+function sizeGridHTML(){const lines=['<line x1="22" y1="2" x2="22" y2="42" stroke="#1B6B2E" stroke-width="2"/>','<line x1="2" y1="22" x2="42" y2="22" stroke="#1B6B2E" stroke-width="2"/>','<line x1="5.5" y1="5.5" x2="38.5" y2="38.5" stroke="#1B6B2E" stroke-width="2"/>','<line x1="38.5" y1="5.5" x2="5.5" y2="38.5" stroke="#1B6B2E" stroke-width="2"/>'];return sizes.map((s,i)=>({s,i,lines})).map(({s,i,lines})=>`<button class="sopt" type="button" data-size="${s.key}" data-price="${s.price}"><svg viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20" stroke="#1B6B2E" stroke-width="2.5"/>${lines.slice(0,i<1?2:4).join("")}${i===3?'<line x1="2" y1="12" x2="42" y2="32" stroke="#1B6B2E" stroke-width="1.5"/><line x1="2" y1="32" x2="42" y2="12" stroke="#1B6B2E" stroke-width="1.5"/>':""}</svg><span class="sopt-ltr">${s.key}</span><span class="sopt-sl">${s.slices}</span><span class="sopt-val">R$ ${s.price}</span></button>`).join("")}
+function bordaChipsHTML(){return bordas.map((n,i)=>`<button class="bchip ${i===0?"sel":""}" type="button" data-borda="${escapeHtml(n)}">${n==="Sem borda"?n:`${n} +R$5`}</button>`).join("")}
+function renderSizeOptions(){qs("#size-grid").innerHTML=sizeGridHTML();qs("#borda-chips").innerHTML=bordaChipsHTML()}
+
+function populateMeioSecondSelect(excludeName){
+  const opts=allFlavorNames.filter(n=>n!==excludeName).map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join("");
+  qs("#meio-second-select").innerHTML=`<option value="">Selecione o sabor...</option>`+opts;
+}
+
+function renderReceiveModeSelector(){
+  return `<div class="receive-block">
+    <div class="receive-hd"><i class="fa-solid fa-truck-fast" style="color:var(--charcoal)"></i> Como quer receber?</div>
+    <div class="receive-opts">
+      <button class="ropt delivery ${state.receiveMode==="delivery"?"sel delivery":""}" data-receive="delivery">
+        <i class="fa-solid fa-motorcycle"></i>
+        <span class="ropt-lbl">Delivery</span>
+        <span class="ropt-sub">Entrega em casa</span>
+      </button>
+      <button class="ropt buscar ${state.receiveMode==="buscar"?"sel buscar":""}" data-receive="buscar">
+        <i class="fa-solid fa-store"></i>
+        <span class="ropt-lbl">Buscar</span>
+        <span class="ropt-sub">Retirar no local</span>
+      </button>
+    </div>
+  </div>`;
+}
+
+function renderAddressBlock(){
+  if(state.receiveMode==="buscar"){
+    return `<div class="info-chip gold"><i class="fa-solid fa-store"></i> Rua Aleixo Bezerra, 524 — Centro, Sumé. Venha buscar quando estiver pronto!</div>`;
+  }
+  return `<div class="addr-block">
+    <div class="addr-hd"><i class="fa-solid fa-location-dot"></i> Endereço de entrega</div>
+    <div class="addr-g2">
+      <label><span class="fl-lbl">Rua / Av. <span class="req">*</span></span><input class="fl-inp" data-addr="rua" type="text" placeholder="Ex: Rua das Flores" value="${escapeHtml(state.addr.rua)}"></label>
+      <label><span class="fl-lbl">Nº <span class="req">*</span></span><input class="fl-inp" data-addr="numero" type="text" placeholder="42" value="${escapeHtml(state.addr.numero)}"></label>
+    </div>
+    <label><span class="fl-lbl">Bairro <span class="req">*</span></span><input class="fl-inp" data-addr="bairro" type="text" placeholder="Ex: Centro" value="${escapeHtml(state.addr.bairro)}"></label>
+    <label style="display:block;margin-top:7px"><span class="fl-lbl">Referência</span><input class="fl-inp" data-addr="ref" type="text" placeholder="Próximo ao mercado" value="${escapeHtml(state.addr.ref)}"></label>
+  </div>`;
+}
+
+function isAddrOk(){
+  if(state.receiveMode==="buscar") return true;
+  return Boolean(state.addr.rua&&state.addr.numero&&state.addr.bairro);
+}
+
+function openSzModal(name,img){
+  state.modal={name,img,size:"",price:0,borda:"Sem borda",isMeio:false,flavor2:""};
+  qs("#sz-pname").textContent=name;
+  document.querySelectorAll(".sopt").forEach(i=>i.classList.remove("sel"));
+  document.querySelectorAll(".bchip").forEach(i=>i.classList.toggle("sel",i.dataset.borda==="Sem borda"));
+  qs("#meio-toggle-chk").checked=false;
+  qs("#meio-second-wrap").style.display="none";
+  populateMeioSecondSelect(name);
+  qs("#meio-second-select").value="";
+  updateSizePreview();
+  qs("#sz-overlay").classList.add("open");
+  document.body.classList.add("lock");
+  qs(".sz-bd").scrollTop=0;
+}
+function closeSzModal(){qs("#sz-overlay").classList.remove("open");document.body.classList.remove("lock")}
+function updateSizePreview(){
+  const extra=state.modal.borda==="Sem borda"?0:5,btn=qs("#btn-add-sz");
+  if(!state.modal.size){qs("#sz-prev").textContent="Selecione um tamanho acima";btn.disabled=true;return}
+  if(state.modal.isMeio&&!state.modal.flavor2){qs("#sz-prev").textContent="Escolha o segundo sabor da meio a meio";btn.disabled=true;return}
+  const label=state.modal.isMeio?`1/2 <strong>${escapeHtml(state.modal.name)}</strong> + 1/2 <strong>${escapeHtml(state.modal.flavor2)}</strong>`:`Pizza <strong>${state.modal.size}</strong>`;
+  const sizeTxt=state.modal.isMeio?` - Tamanho <strong>${state.modal.size}</strong>`:"";
+  qs("#sz-prev").innerHTML=`${label}${sizeTxt}${extra?` + Borda ${escapeHtml(state.modal.borda)}`:""} = <strong>${money(state.modal.price+extra)}</strong>`;
+  btn.disabled=false;
+}
+function confirmSz(){
+  if(!state.modal.size)return;
+  if(state.modal.isMeio&&!state.modal.flavor2)return;
+  const extra=state.modal.borda==="Sem borda"?0:5,bordaText=extra?` (Borda ${state.modal.borda})`:"";
+  const name=state.modal.isMeio?`1/2 ${state.modal.name} + 1/2 ${state.modal.flavor2} - ${state.modal.size}${bordaText}`:`${state.modal.name} - ${state.modal.size}${bordaText}`;
+  addDirect(name,state.modal.img,state.modal.price+extra);
+  closeSzModal();
+}
+
+function addDirect(name,img,price){const cur=state.cart.find(i=>i.name===name);if(cur)cur.qty++;else state.cart.push({name,img,price:Number(price),qty:1});updateCartBadges();showToast("+ "+name.split(" - ")[0])}
+function removeItem(name){state.cart=state.cart.filter(i=>i.name!==name);updateCartBadges();renderCart()}
+function changeQty(name,delta){const item=state.cart.find(i=>i.name===name);if(!item)return;item.qty+=delta;if(item.qty<=0)removeItem(name);else{updateCartBadges();renderCart()}}
+function getTotal(){return state.cart.reduce((s,i)=>s+i.price*i.qty,0)}
+function getFinalTotal(){return getTotal()+(state.receiveMode==="delivery"?DELIVERY_FEE:0)}
+function getQty(){return state.cart.reduce((s,i)=>s+i.qty,0)}
+function updateCartBadges(){const q=getQty();qs("#nav-cart-count").textContent=q;qs("#tab-cart-count").textContent=q;if(qs("#tab-cart").classList.contains("active"))renderCart()}
+
+function renderCart(){
+  const c=qs("#cart-content");
+  if(!state.cart.length){
+    c.innerHTML=`<div class="cart-empty"><i class="fa-solid fa-cart-shopping"></i><p>Carrinho vazio. Adicione pizzas!</p><button class="btn-size" onclick="showTab('salgadas')"><i class="fa-solid fa-pizza-slice"></i> Ver Cardápio</button></div>`;
+    return;
+  }
+  const items=state.cart.map(i=>`<div class="cart-item">${i.img?`<div class="citem-img"><img src="${i.img}" alt="${escapeHtml(i.name)}"></div>`:""}<div class="citem-info"><strong>${escapeHtml(i.name)}</strong><span>${money(i.price)} un.</span><div class="qty-ctrl"><button class="qty-btn" data-qty-name="${escapeHtml(i.name)}" data-delta="-1">−</button><span class="qty-num">${i.qty}</span><button class="qty-btn" data-qty-name="${escapeHtml(i.name)}" data-delta="1">+</button><button class="qty-btn" data-remove-name="${escapeHtml(i.name)}"><i class="fa-solid fa-trash" style="font-size:.58rem"></i></button></div></div><div class="citem-price">${money(i.price*i.qty)}</div></div>`).join("");
+
+  const payOptions=[["dinheiro","fa-solid fa-money-bill-wave","Dinheiro"],["pix","fa-brands fa-pix","Pix"],["debito","fa-solid fa-credit-card","Débito"],["credito","fa-regular fa-credit-card","Crédito"]].map(([id,icon,label])=>`<button class="popt ${state.selectedPay===id?"sel":""}" data-pay="${id}"><i class="${icon}"></i><span>${label}</span></button>`).join("");
+
+  const ok=Boolean(state.selectedPay&&isAddrOk());
+  const deliveryRow=state.receiveMode==="delivery"?`<div class="sum-row"><span>Entrega</span><span>R$ 2,00</span></div>`:"";
+  const finalTotal=getFinalTotal();
+
+  c.innerHTML=`<div class="cart-layout">
+    <div>
+      <div class="cart-col-title"><i class="fa-solid fa-receipt" style="color:var(--red);font-size:1.3rem"></i> Seu Pedido <span class="qty-pill">${getQty()}</span></div>
+      ${items}
+      <button class="qty-btn" style="width:auto;padding:0 12px" onclick="clearCart()">Limpar</button>
+    </div>
+    <div class="pay-box">
+      <div class="pay-hd"><i class="fa-solid fa-lock"></i><h4>Pagamento</h4></div>
+      <div class="pay-bd">
+        <div class="sum-row"><span>Subtotal</span><span>${money(getTotal())}</span></div>
+        ${deliveryRow}
+        <div class="sum-row total"><span>Total</span><span class="val">${money(finalTotal)}</span></div>
+        ${renderReceiveModeSelector()}
+        ${renderAddressBlock()}
+        <span class="pay-lbl">Forma de pagamento</span>
+        <div class="pay-methods">${payOptions}</div>
+        ${state.selectedPay==="dinheiro"?renderTroco():""}
+        <label><span class="obs-lbl">Observações (opcional)</span><textarea id="obs-inp" class="obs-inp fl-inp" rows="2" placeholder="Ex: sem cebola, cream cheese extra...">${escapeHtml(state.obs)}</textarea></label>
+        <button class="btn-confirm" id="btn-confirm" ${ok?"":"disabled"} onclick="confirmPedido()"><i class="fa-brands fa-whatsapp" style="font-size:1.15rem"></i> Confirmar Pedido</button>
+        <p class="pay-hint" id="pay-hint"><i class="fa-solid fa-circle-info"></i> ${ok?"Pedido será enviado via WhatsApp":state.selectedPay?"Preencha o endereço":"Escolha a forma de pagamento"}</p>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderTroco(){const chips=[["nao","Não preciso"],["50","R$ 50"],["100","R$ 100"],["outro","Outro"]];return `<div class="troco-block"><div class="troco-lbl"><i class="fa-solid fa-coins"></i> Precisa de troco?</div><div class="troco-chips">${chips.map(([id,label])=>`<button class="tchip ${state.troco===id?"sel":""}" data-troco="${id}">${label}</button>`).join("")}</div>${state.troco==="outro"?`<div style="display:flex;align-items:center;gap:7px;margin-top:9px"><strong>R$</strong><input class="fl-inp" id="troco-custom" type="number" inputmode="decimal" placeholder="Valor" value="${escapeHtml(state.trocoCustom)}"></div>`:""}</div>`}
+function clearCart(){state.cart=[];updateCartBadges();renderCart()}
+
+function syncConfirmButton(){
+  const b=qs("#btn-confirm"),h=qs("#pay-hint");
+  if(!b||!h)return;
+  const ok=Boolean(state.selectedPay&&isAddrOk());
+  b.disabled=!ok;
+  h.innerHTML=`<i class="fa-solid fa-circle-info"></i> ${ok?"Pedido será enviado via WhatsApp":state.selectedPay?"Preencha o endereço":"Escolha a forma de pagamento"}`;
+}
+
+function confirmPedido(){
+  state.obs=qs("#obs-inp")?.value||state.obs;
+  if(!state.selectedPay||!state.cart.length||!isAddrOk())return;
+  if(state.selectedPay==="pix"){openPixModal();return}
+  sendWA();
+}
+
+function sendWA(){
+  state.obs=qs("#obs-inp")?.value||state.obs;
+  const payLabel={dinheiro:"Dinheiro",pix:"Pix (Nubank)",debito:"Cartão Débito",credito:"Cartão Crédito"}[state.selectedPay]||state.selectedPay;
+  const modeLabel={delivery:"🛵 Delivery",buscar:"🏪 Retirada no local"}[state.receiveMode];
+  let msg="🍕 *PEDIDO - Pizzaria do Gordo*\n\n*Itens:*\n";
+  state.cart.forEach(i=>{msg+=`• ${i.qty}x ${i.name} - ${money(i.price*i.qty)}\n`});
+  msg+=`\n*Subtotal:* ${money(getTotal())}`;
+  if(state.receiveMode==="delivery")msg+=`\n*Entrega:* R$ 2,00\n*Total:* ${money(getFinalTotal())}`;
+  else msg+=`\n*Total:* ${money(getTotal())}`;
+  msg+=`\n*Modalidade:* ${modeLabel}`;
+  msg+=`\n*Pagamento:* ${payLabel}`;
+  if(state.selectedPay==="dinheiro"){
+    if(state.troco==="nao")msg+="\n*Troco:* Não precisa";
+    if(state.troco==="50")msg+="\n*Troco:* Para R$ 50,00";
+    if(state.troco==="100")msg+="\n*Troco:* Para R$ 100,00";
+    if(state.troco==="outro"&&state.trocoCustom)msg+=`\n*Troco:* Para ${money(state.trocoCustom)}`;
+  }
+  if(state.receiveMode==="delivery"){
+    let endereco=`${state.addr.rua}, ${state.addr.numero} - ${state.addr.bairro}, Sumé - PB`;
+    if(state.addr.ref.trim())endereco+=` (Ref: ${state.addr.ref.trim()})`;
+    msg+=`\n*Endereço:* ${endereco}`;
+  }
+  if(state.obs.trim())msg+=`\n*Obs:* ${state.obs.trim()}`;
+  window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank","noopener");
+}
+
+function showTab(id){document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"));document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));qs("#tab-"+id)?.classList.add("active");if(id==="cart")renderCart()}
+function openCart(){showTab("cart");qs("#cardapio").scrollIntoView({behavior:"smooth"})}
+function openPixModal(){qs("#pix-ov").classList.add("open");document.body.classList.add("lock");const pt=qs("#pix-total");if(pt&&getTotal()>0)pt.textContent="Total: "+money(getFinalTotal());}
+function closePixModal(){qs("#pix-ov").classList.remove("open");document.body.classList.remove("lock")}
+async function copyPix(){try{await navigator.clipboard.writeText(PIX_KEY)}catch(e){const t=document.createElement("textarea");t.value=PIX_KEY;t.style.cssText="position:fixed;opacity:0";document.body.appendChild(t);t.select();document.execCommand("copy")}const b=qs("#pix-copy-btn");b.classList.add("done");b.innerHTML='<i class="fa-solid fa-check"></i> Copiado!';setTimeout(()=>{b.classList.remove("done");b.innerHTML='<i class="fa-regular fa-copy"></i> Copiar'},2500)}
+let toastTimer;function showToast(m){qs("#toast-msg").textContent=m;qs("#toast").classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>qs("#toast").classList.remove("show"),2400)}
+
+function init(){
+  renderPizzas(salgadas,"salgadas-grid");
+  renderPizzas(doces,"doces-grid",true);
+  renderDrinks();
+  renderSizeOptions();
+  qs("#meio-toggle-chk").addEventListener("change",e=>{
+    state.modal.isMeio=e.target.checked;
+    qs("#meio-second-wrap").style.display=state.modal.isMeio?"block":"none";
+    if(!state.modal.isMeio){state.modal.flavor2="";qs("#meio-second-select").value=""}
+    updateSizePreview();
+  });
+  qs("#meio-second-select").addEventListener("change",e=>{state.modal.flavor2=e.target.value;updateSizePreview()});
+  document.addEventListener("click",e=>{
+    const pizzaCard=e.target.closest(".pizza-card");
+    if(pizzaCard){openSzModal(pizzaCard.dataset.pizza,pizzaCard.dataset.img);return}
+    const tabButton=e.target.closest("[data-tab]");
+    if(tabButton){showTab(tabButton.dataset.tab);return}
+    const drinkButton=e.target.closest("[data-drink]");
+    if(drinkButton){addDirect(drinkButton.dataset.drink,"",drinkButton.dataset.price);return}
+    const sizeButton=e.target.closest("[data-size]");
+    if(sizeButton){document.querySelectorAll(".sopt").forEach(i=>i.classList.remove("sel"));sizeButton.classList.add("sel");state.modal.size=sizeButton.dataset.size;state.modal.price=Number(sizeButton.dataset.price);updateSizePreview();return}
+    const bordaButton=e.target.closest("[data-borda]");
+    if(bordaButton){document.querySelectorAll(".bchip").forEach(i=>i.classList.remove("sel"));bordaButton.classList.add("sel");state.modal.borda=bordaButton.dataset.borda;updateSizePreview();return}
+    const qtyButton=e.target.closest("[data-qty-name]");
+    if(qtyButton){changeQty(qtyButton.dataset.qtyName,Number(qtyButton.dataset.delta));return}
+    const removeButton=e.target.closest("[data-remove-name]");
+    if(removeButton){removeItem(removeButton.dataset.removeName);return}
+    const payButton=e.target.closest("[data-pay]");
+    if(payButton){state.obs=qs("#obs-inp")?.value||state.obs;state.selectedPay=payButton.dataset.pay;if(state.selectedPay!=="dinheiro"){state.troco="";state.trocoCustom=""}renderCart();return}
+    const trocoButton=e.target.closest("[data-troco]");
+    if(trocoButton){state.troco=trocoButton.dataset.troco;if(state.troco!=="outro")state.trocoCustom="";state.obs=qs("#obs-inp")?.value||state.obs;renderCart();return}
+    const footerTab=e.target.closest("[data-footer-tab]");
+    if(footerTab)showTab(footerTab.dataset.footerTab);
+    const receiveBtn=e.target.closest("[data-receive]");
+    if(receiveBtn){state.obs=qs("#obs-inp")?.value||state.obs;state.receiveMode=receiveBtn.dataset.receive;renderCart();return}
+  });
+  document.addEventListener("input",e=>{
+    if(e.target.matches("[data-addr]")){state.addr[e.target.dataset.addr]=e.target.value;syncConfirmButton()}
+    if(e.target.id==="obs-inp")state.obs=e.target.value;
+    if(e.target.id==="troco-custom")state.trocoCustom=e.target.value;
+  });
+  qs("#sz-overlay").addEventListener("click",e=>{if(e.target.id==="sz-overlay")closeSzModal()});
+  qs("#pix-ov").addEventListener("click",e=>{if(e.target.id==="pix-ov")closePixModal()});
+  window.addEventListener("keydown",e=>{if(e.key==="Escape"){closeSzModal();closePixModal()}});
+  window.addEventListener("scroll",()=>{qs("#header").style.boxShadow=scrollY>50?"0 4px 22px rgba(0,0,0,.14)":"0 2px 18px rgba(0,0,0,.1)"});
+}
+document.addEventListener("DOMContentLoaded",init);
+</script>
+</body>
+</html>

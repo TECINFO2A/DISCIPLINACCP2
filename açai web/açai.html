@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Pedidos — Açaí & Sorvetes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFF8EC;
+    --bg-soft: #FFF1DA;
+    --paper: #FFFFFF;
+    --ink: #241428;
+    --ink-soft: #6B5B6E;
+    --acai: #3B1E52;
+    --acai-dark: #2A1440;
+    --berry: #C43C82;
+    --berry-dark: #A62E6C;
+    --mint: #3F9B6B;
+    --mint-bg: #E4F5EA;
+    --amber: #C77A1E;
+    --amber-bg: #FDEBD3;
+    --rose: #B0392B;
+    --rose-bg: #FBE6E1;
+    --line: #EEE1CB;
+    --shadow: 0 6px 18px rgba(59, 30, 82, 0.10);
+    --radius: 16px;
+  }
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    min-height: 100vh;
+    padding-bottom: 48px;
+  }
+  h1,h2,h3, .display{
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    margin: 0;
+  }
+  button{ font-family: inherit; cursor: pointer; }
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 20px 16px 12px;
+  }
+
+  /* ---------- Header ---------- */
+  .topbar{
+    background: var(--acai);
+    color: #fff;
+    padding: 22px 16px 28px;
+    border-radius: 0 0 28px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .topbar::after{
+    content:"";
+    position:absolute;
+    right:-40px; top:-60px;
+    width:160px; height:160px;
+    border-radius:50%;
+    background: radial-gradient(circle at 30% 30%, var(--berry) 0%, rgba(196,60,130,0) 70%);
+    opacity:0.6;
+  }
+  .brand-row{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap: 12px;
+    position:relative;
+    z-index:1;
+  }
+  .brand{
+    font-size: 26px;
+    letter-spacing: 0.2px;
+  }
+  .brand span{ color: #F3C6DE; }
+  .today-date{
+    font-size: 13px;
+    color: #D8C6E4;
+    text-transform: capitalize;
+    white-space: nowrap;
+  }
+  .history-link{
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    color: var(--acai);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .history-link:hover{ background: var(--line); }
+
+  .new-order-btn{
+    display:block;
+    width: 100%;
+    margin-top: 18px;
+    background: var(--berry);
+    color: #fff;
+    border: none;
+    padding: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    font-family: 'Baloo 2', sans-serif;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+    position: relative;
+    z-index:1;
+    transition: transform 0.08s ease, background 0.15s ease;
+  }
+  .new-order-btn:hover{ background: var(--berry-dark); }
+  .new-order-btn:active{ transform: scale(0.98); }
+
+  .stats-row{
+    display:flex;
+    gap: 12px;
+    margin-top: -22px;
+    position: relative;
+    z-index: 2;
+    padding: 0 16px;
+  }
+  .stat-chip{
+    flex:1;
+    background: var(--paper);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 12px 16px;
+    text-align: left;
+  }
+  .stat-chip .num{
+    font-family:'Baloo 2', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--acai);
+    display:block;
+  }
+  .stat-chip .label{
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Section title ---------- */
+  .section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin: 26px 4px 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .section-title h2{ font-size: 19px; color: var(--acai); }
+  .title-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+  .back-link{
+    background:none; border:none; color: var(--berry); font-weight:600; font-size:14px;
+  }
+
+  /* ---------- Empty state ---------- */
+  .empty-state{
+    text-align:center;
+    padding: 46px 20px;
+    color: var(--ink-soft);
+  }
+  .empty-state .emoji{ font-size: 40px; display:block; margin-bottom:10px; }
+  .empty-state strong{ display:block; color: var(--acai); font-family:'Baloo 2'; font-size:17px; margin-bottom:4px;}
+
+  /* ---------- Orders table / cards ---------- */
+  table{
+    width:100%;
+    border-collapse: collapse;
+    background: var(--paper);
+    border-radius: var(--radius);
+    overflow:hidden;
+    box-shadow: var(--shadow);
+  }
+  thead th{
+    text-align:left;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    font-weight: 600;
+    padding: 12px 14px;
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  tbody td{
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+    vertical-align: middle;
+  }
+  tbody tr:last-child td{ border-bottom:none; }
+  td.col-num{ font-family:'Baloo 2'; font-weight:700; color: var(--acai); width: 44px; }
+  td.col-time{ color: var(--ink-soft); white-space:nowrap; width: 66px; }
+  td.col-product .note{ display:block; font-size:12.5px; color: var(--ink-soft); margin-top:2px; }
+  td.col-value{ font-weight:700; white-space:nowrap; }
+  td.col-actions{ white-space:nowrap; text-align:right; }
+
+  .pay-pill{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--bg-soft);
+    color: var(--acai);
+    border: 1px solid var(--line);
+  }
+
+  .status-btn{
+    border:none;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .status-btn.pendente{ background: var(--amber-bg); color: var(--amber); }
+  .status-btn.concluido{ background: var(--mint-bg); color: var(--mint); }
+  .status-btn:hover{ filter: brightness(0.96); }
+
+  .paid-btn{
+    border:none;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .paid-btn.pago{ background: var(--mint-bg); color: var(--mint); }
+  .paid-btn.pendente{ background: var(--rose-bg); color: var(--rose); }
+  .paid-btn:hover{ filter: brightness(0.96); }
+
+  .customer-name{
+    font-weight:600;
+    color: var(--ink);
+  }
+  .customer-name.empty{ color: var(--ink-soft); font-weight:400; font-style:italic; }
+
+  .icon-btn{
+    background:none;
+    border:none;
+    color: var(--ink-soft);
+    font-size: 16px;
+    padding: 6px 7px;
+    border-radius: 8px;
+  }
+  .icon-btn:hover{ background: var(--bg-soft); color: var(--acai); }
+  .icon-btn.danger:hover{ color:#B03434; background:#FBE6E6; }
+  .confirm-del{
+    background: #B03434;
+    color:#fff;
+    border:none;
+    font-size:12.5px;
+    font-weight:700;
+    padding:6px 10px;
+    border-radius:8px;
+  }
+
+  /* Responsive: table -> cards */
+  @media (max-width: 700px){
+    thead{ display:none; }
+    table, tbody, tr, td{ display:block; width:100%; }
+    tbody tr{
+      padding: 12px 14px 6px;
+      border-bottom: 1px solid var(--line);
+    }
+    td{
+      border-bottom:none !important;
+      padding: 4px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+    td::before{
+      content: attr(data-label);
+      font-size: 12px;
+      font-weight:600;
+      color: var(--ink-soft);
+      flex-shrink:0;
+    }
+    td.col-num{ order:1; }
+    td.col-time{ order:2; }
+    td.col-customer{ order:3; }
+    td.col-product{ order:4; flex-direction:column; align-items:flex-start; }
+    td.col-product::before{ margin-bottom:2px; }
+    td.col-value{ order:5; }
+    td.col-pay{ order:6; }
+    td.col-paid{ order:7; }
+    td.col-status{ order:8; }
+    td.col-actions{ order:9; padding-top:8px; justify-content:flex-end; }
+    td.col-actions::before{ content:none; }
+  }
+
+  /* ---------- History ---------- */
+  .day-group{
+    background: var(--paper);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+    overflow:hidden;
+  }
+  .day-head{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 15px 16px;
+    background: var(--bg-soft);
+    border:none;
+    text-align:left;
+  }
+  .day-head .d-title{ font-family:'Baloo 2'; font-weight:700; color: var(--acai); text-transform:capitalize; }
+  .day-head .d-meta{ font-size: 13px; color: var(--ink-soft); }
+  .day-body{ display:none; }
+  .day-body.open{ display:block; }
+  .day-body table{ box-shadow:none; border-radius:0; }
+  .day-head .chevron{ transition: transform 0.15s ease; color: var(--ink-soft); }
+  .day-head.open .chevron{ transform: rotate(180deg); }
+
+  /* ---------- Modal ---------- */
+  .overlay{
+    position:fixed; inset:0;
+    background: rgba(36,20,40,0.45);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    z-index: 50;
+    padding: 0;
+  }
+  .overlay.open{ display:flex; }
+  @media (min-width:600px){
+    .overlay{ align-items:center; padding:20px; }
+  }
+  .modal{
+    background: var(--paper);
+    width:100%;
+    max-width: 480px;
+    border-radius: 22px 22px 0 0;
+    padding: 22px 20px 26px;
+    max-height: 92vh;
+    overflow-y:auto;
+  }
+  @media (min-width:600px){
+    .modal{ border-radius: 20px; }
+  }
+  .modal h2{ color: var(--acai); font-size:20px; margin-bottom: 4px; }
+  .modal .sub{ color: var(--ink-soft); font-size:13.5px; margin-bottom:18px; }
+  .field{ margin-bottom:16px; }
+  .field label{
+    display:block;
+    font-size: 13px;
+    font-weight:600;
+    color: var(--ink-soft);
+    margin-bottom:6px;
+  }
+  .field input[type=text], .field input[type=number], .field textarea{
+    width:100%;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 15.5px;
+    font-family:inherit;
+    color: var(--ink);
+    background: var(--bg);
+  }
+  .field input:focus, .field textarea:focus{
+    outline: none;
+    border-color: var(--berry);
+  }
+  .field textarea{ resize:vertical; min-height:56px; }
+  .pay-options{ display:flex; gap:8px; }
+  .pay-opt{
+    flex:1;
+    border: 1.5px solid var(--line);
+    background: var(--bg);
+    color: var(--ink);
+    padding: 12px 6px;
+    border-radius: 12px;
+    font-weight:600;
+    font-size: 14px;
+  }
+  .pay-opt[aria-pressed="true"]{
+    border-color: var(--berry);
+    background: #FBE9F1;
+    color: var(--berry-dark);
+  }
+  .modal-actions{
+    display:flex;
+    gap:10px;
+    margin-top: 22px;
+  }
+  .btn-primary, .btn-secondary{
+    flex:1;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight:700;
+    font-family:'Baloo 2';
+    font-size: 15.5px;
+    border:none;
+  }
+  .btn-primary{ background: var(--berry); color:#fff; }
+  .btn-primary:hover{ background: var(--berry-dark); }
+  .btn-secondary{ background: var(--bg-soft); color: var(--ink-soft); }
+  .btn-secondary:hover{ background: var(--line); }
+  .error-msg{
+    color:#B03434;
+    font-size: 13px;
+    margin-top: -6px;
+    margin-bottom: 12px;
+    display:none;
+  }
+  .error-msg.show{ display:block; }
+
+  .load-note{
+    text-align:center;
+    color: var(--ink-soft);
+    font-size: 13.5px;
+    padding: 30px 0;
+  }
+
+  /* ---------- Impressão ---------- */
+  .print-only{ display:none; }
+
+  @media print{
+    #appRoot{ display:none !important; }
+    body{ background:#fff; padding:0; }
+    .print-only{ display:block !important; }
+  }
+
+  .receipt{
+    width: 300px;
+    margin: 0 auto;
+    font-family: 'Work Sans', sans-serif;
+    color: #000;
+  }
+  .receipt h2{
+    font-family:'Baloo 2', sans-serif;
+    text-align:center;
+    font-size: 19px;
+    margin-bottom: 2px;
+  }
+  .receipt .r-sub{
+    text-align:center;
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  .receipt hr{ border:none; border-top:1px dashed #000; margin: 10px 0; }
+  .receipt .r-row{
+    display:flex;
+    justify-content:space-between;
+    gap: 10px;
+    font-size: 13.5px;
+    margin: 4px 0;
+  }
+  .receipt .r-label{ color:#333; }
+  .receipt .r-product{ font-size:14px; margin: 6px 0; }
+  .receipt .r-product .r-note{ display:block; font-size:12px; color:#333; margin-top:2px; }
+  .receipt .r-total{ font-weight:700; font-size: 16px; }
+  .receipt .r-footer{ text-align:center; font-size:12px; color:#333; margin-top: 16px; }
+
+  .report{
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+    font-family: 'Work Sans', sans-serif;
+    color: #000;
+  }
+  .report h2{
+    font-family:'Baloo 2', sans-serif;
+    font-size: 21px;
+    margin-bottom: 2px;
+    text-transform: capitalize;
+  }
+  .report .r-sub{ font-size: 13px; color:#333; margin-bottom: 16px; }
+  .report table{
+    width:100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    margin-bottom: 20px;
+  }
+  .report th, .report td{
+    border: 1px solid #999;
+    padding: 5px 7px;
+    text-align:left;
+  }
+  .report th{ background:#eee; }
+  .report .summary{
+    width: 100%;
+    max-width: 340px;
+  }
+  .report .summary .s-row{
+    display:flex;
+    justify-content:space-between;
+    font-size: 13.5px;
+    padding: 4px 0;
+    border-bottom: 1px dotted #bbb;
+  }
+  .report .summary .s-row.grand{
+    font-weight:700;
+    font-size: 15.5px;
+    border-bottom: none;
+    border-top: 1.5px solid #000;
+    margin-top: 4px;
+    padding-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+  <div id="appRoot">
+  <div class="topbar">
+    <div class="brand-row">
+      <h1 class="brand">Açaí <span>TopMania</span></h1>
+      <div class="today-date" id="todayDate"></div>
+    </div>
+    <button class="new-order-btn" id="btnNewOrder">+ Novo Pedido</button>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-chip">
+      <span class="num" id="statCount">0</span>
+      <span class="label">Pedidos do dia</span>
+    </div>
+    <div class="stat-chip">
+      <span class="num" id="statTotal">R$ 0,00</span>
+      <span class="label">Total vendido</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- HOJE -->
+    <div id="viewToday">
+      <div class="section-title">
+        <h2>Pedidos de hoje</h2>
+        <div class="title-actions">
+          <button class="history-link" id="btnPrintReport">🖨️ Relatório do dia</button>
+          <button class="history-link" id="btnHistory">Histórico</button>
+        </div>
+      </div>
+      <div id="todayContainer">
+        <div class="load-note">Carregando pedidos…</div>
+      </div>
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div id="viewHistory" style="display:none;">
+      <div class="section-title">
+        <h2>Histórico de pedidos</h2>
+        <button class="back-link" id="btnBackToday">← Voltar para hoje</button>
+      </div>
+      <div id="historyContainer"></div>
+    </div>
+
+  </div>
+
+  <!-- MODAL NOVO / EDITAR PEDIDO -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <h2 id="modalTitle">Novo pedido</h2>
+      <div class="sub" id="modalSub">Preencha e salve — leva só alguns segundos.</div>
+      <form id="orderForm">
+        <div class="field">
+          <label for="fCustomer">Nome do cliente (opcional)</label>
+          <input type="text" id="fCustomer" placeholder="Ex: Maria" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="fProduct">Pedido / Produto</label>
+          <input type="text" id="fProduct" placeholder="Ex: Açaí 500ml + granola + leite ninho" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="fValue">Valor</label>
+          <input type="text" id="fValue" placeholder="R$ 0,00" inputmode="numeric" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>Forma de pagamento</label>
+          <div class="pay-options" id="payOptions">
+            <button type="button" class="pay-opt" data-value="Pix" aria-pressed="false">Pix</button>
+            <button type="button" class="pay-opt" data-value="Dinheiro" aria-pressed="false">Dinheiro</button>
+            <button type="button" class="pay-opt" data-value="Cartão" aria-pressed="false">Cartão</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Situação do pagamento</label>
+          <div class="pay-options" id="paidOptions">
+            <button type="button" class="pay-opt" data-paid="true" aria-pressed="false">Pago</button>
+            <button type="button" class="pay-opt" data-paid="false" aria-pressed="false">Pendente</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fNote">Observação (opcional)</label>
+          <textarea id="fNote" placeholder="Ex: sem leite condensado"></textarea>
+        </div>
+        <div class="error-msg" id="formError">Preencha o pedido, o valor e a forma de pagamento.</div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="btnCancelForm">Cancelar</button>
+          <button type="submit" class="btn-primary" id="btnSaveForm">Salvar pedido</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  </div><!-- /appRoot -->
+
+  <div id="printArea" class="print-only"></div>
+
+<script>
+(function(){
+  var orders = [];
+  var editingId = null;
+  var selectedPayment = null;
+  var selectedPaid = true;
+  var pendingDeleteId = null;
+  var storageReady = false;
+
+  // ---------- Helpers ----------
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function isoDate(d){
+    return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+  }
+  function todayISO(){ return isoDate(new Date()); }
+  function timeNow(){
+    var d = new Date();
+    return pad(d.getHours()) + ':' + pad(d.getMinutes());
+  }
+  function formatMoney(v){
+    return 'R$ ' + Number(v).toFixed(2).replace('.', ',');
+  }
+
+  // Máscara de moeda: usuário digita só números, os 2 últimos dígitos viram centavos.
+  function digitsToCents(str){
+    var d = (str || '').replace(/\D/g, '');
+    d = d.replace(/^0+(?=\d)/, '');
+    if(d === '') d = '0';
+    if(d.length > 9) d = d.slice(-9);
+    return parseInt(d, 10);
+  }
+  function centsToDisplay(cents){
+    var reais = cents / 100;
+    return 'R$ ' + reais.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function formatDateLabel(iso){
+    var parts = iso.split('-');
+    var d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+    return d.toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' });
+  }
+
+  document.getElementById('todayDate').textContent =
+    new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'long' });
+
+  // ---------- Storage ----------
+  var STORAGE_KEY = 'pedidos_acai_orders_v1';
+
+  function loadOrders(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      orders = raw ? JSON.parse(raw) : [];
+    }catch(e){
+      console.error('Erro ao carregar pedidos:', e);
+      orders = [];
+    }
+    storageReady = true;
+    renderAll();
+    return Promise.resolve();
+  }
+
+  function saveOrders(){
+    return new Promise(function(resolve){
+      try{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
+      }catch(e){
+        console.error('Erro ao salvar pedidos:', e);
+        alert('Não foi possível salvar. Verifique se o navegador permite armazenamento local.');
+      }
+      resolve();
+    });
+  }
+
+  // ---------- Rendering ----------
+  function renderAll(){
+    renderToday();
+  }
+
+  function renderToday(){
+    var container = document.getElementById('todayContainer');
+    var iso = todayISO();
+    var list = orders.filter(function(o){ return o.date === iso; });
+    list.sort(function(a,b){ return a.number - b.number; });
+
+    var total = list.reduce(function(sum,o){ return sum + Number(o.value); }, 0);
+    document.getElementById('statCount').textContent = list.length;
+    document.getElementById('statTotal').textContent = formatMoney(total);
+
+    if(!storageReady){
+      container.innerHTML = '<div class="load-note">Carregando pedidos…</div>';
+      return;
+    }
+
+    if(list.length === 0){
+      container.innerHTML =
+        '<div class="empty-state"><span class="emoji">🍧</span>' +
+        '<strong>Nenhum pedido ainda hoje</strong>' +
+        'Toque em "+ Novo Pedido" para começar.</div>';
+      return;
+    }
+
+    var html = '<table><thead><tr>' +
+      '<th>Nº</th><th>Horário</th><th>Cliente</th><th>Pedido</th><th>Valor</th><th>Forma</th><th>Pagamento</th><th>Status</th><th></th>' +
+      '</tr></thead><tbody>';
+
+    list.forEach(function(o){
+      html += renderRow(o);
+    });
+    html += '</tbody></table>';
+    container.innerHTML = html;
+    attachRowEvents(container);
+  }
+
+  function renderRow(o){
+    var statusClass = o.status === 'Concluído' ? 'concluido' : 'pendente';
+    var paidClass = o.paid ? 'pago' : 'pendente';
+    var deleteCell = (pendingDeleteId === o.id)
+      ? '<button type="button" class="confirm-del" data-confirm-del="' + o.id + '">Confirmar?</button>'
+      : '<button type="button" class="icon-btn danger" data-del="' + o.id + '" title="Excluir pedido">🗑</button>';
+
+    return '<tr>' +
+      '<td class="col-num" data-label="Nº">#' + o.number + '</td>' +
+      '<td class="col-time" data-label="Horário">' + o.time + '</td>' +
+      '<td class="col-customer" data-label="Cliente">' +
+        (o.customer ? '<span class="customer-name">' + escapeHtml(o.customer) + '</span>' : '<span class="customer-name empty">—</span>') +
+      '</td>' +
+      '<td class="col-product" data-label="Pedido">' + escapeHtml(o.product) +
+        (o.note ? '<span class="note">' + escapeHtml(o.note) + '</span>' : '') + '</td>' +
+      '<td class="col-value" data-label="Valor">' + formatMoney(o.value) + '</td>' +
+      '<td class="col-pay" data-label="Forma"><span class="pay-pill">' + o.payment + '</span></td>' +
+      '<td class="col-paid" data-label="Pagamento">' +
+        '<button type="button" class="paid-btn ' + paidClass + '" data-togglepaid="' + o.id + '" title="Toque para alternar">' +
+          (o.paid ? '✓ Pago' : '● Pendente') +
+        '</button></td>' +
+      '<td class="col-status" data-label="Status">' +
+        '<button type="button" class="status-btn ' + statusClass + '" data-toggle="' + o.id + '" title="Toque para alternar">' +
+          (o.status === 'Concluído' ? '✓ Concluído' : '● Pendente') +
+        '</button></td>' +
+      '<td class="col-actions">' +
+        '<button type="button" class="icon-btn" data-print="' + o.id + '" title="Imprimir nota do cliente">🖨️</button>' +
+        '<button type="button" class="icon-btn" data-edit="' + o.id + '" title="Editar pedido">✎</button>' +
+        deleteCell +
+      '</td>' +
+      '</tr>';
+  }
+
+  function escapeHtml(str){
+    var div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
+  function attachRowEvents(container){
+    container.querySelectorAll('[data-toggle]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        toggleStatus(btn.getAttribute('data-toggle'));
+      });
+    });
+    container.querySelectorAll('[data-togglepaid]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        togglePaid(btn.getAttribute('data-togglepaid'));
+      });
+    });
+    container.querySelectorAll('[data-print]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        printOrderReceipt(btn.getAttribute('data-print'));
+      });
+    });
+    container.querySelectorAll('[data-edit]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        openForm(btn.getAttribute('data-edit'));
+      });
+    });
+    container.querySelectorAll('[data-del]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        pendingDeleteId = btn.getAttribute('data-del');
+        renderCurrentView();
+        setTimeout(function(){
+          if(pendingDeleteId){ pendingDeleteId = null; renderCurrentView(); }
+        }, 3000);
+      });
+    });
+    container.querySelectorAll('[data-confirm-del]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = btn.getAttribute('data-confirm-del');
+        deleteOrder(id);
+        pendingDeleteId = null;
+      });
+    });
+  }
+
+  function renderCurrentView(){
+    if(document.getElementById('viewHistory').style.display !== 'none'){
+      renderHistory();
+    } else {
+      renderToday();
+    }
+  }
+
+  function toggleStatus(id){
+    var o = orders.find(function(x){ return x.id === id; });
+    if(!o) return;
+    o.status = (o.status === 'Concluído') ? 'Pendente' : 'Concluído';
+    saveOrders().then(renderCurrentView);
+  }
+
+  function togglePaid(id){
+    var o = orders.find(function(x){ return x.id === id; });
+    if(!o) return;
+    o.paid = !o.paid;
+    saveOrders().then(renderCurrentView);
+  }
+
+  function deleteOrder(id){
+    orders = orders.filter(function(x){ return x.id !== id; });
+    saveOrders().then(renderCurrentView);
+  }
+
+  // ---------- History ----------
+  function renderHistory(){
+    var container = document.getElementById('historyContainer');
+    var iso = todayISO();
+    var byDate = {};
+    orders.forEach(function(o){
+      if(o.date === iso) return; // histórico = dias anteriores
+      if(!byDate[o.date]) byDate[o.date] = [];
+      byDate[o.date].push(o);
+    });
+    var dates = Object.keys(byDate).sort().reverse();
+
+    if(dates.length === 0){
+      container.innerHTML = '<div class="empty-state"><span class="emoji">📋</span>' +
+        '<strong>Sem histórico ainda</strong>Os pedidos de dias anteriores vão aparecer aqui.</div>';
+      return;
+    }
+
+    var html = '';
+    dates.forEach(function(dateIso, idx){
+      var list = byDate[dateIso].slice().sort(function(a,b){ return a.number - b.number; });
+      var total = list.reduce(function(sum,o){ return sum + Number(o.value); }, 0);
+      var groupId = 'day_' + dateIso.replace(/-/g,'');
+
+      html += '<div class="day-group">' +
+        '<button type="button" class="day-head" data-day="' + groupId + '">' +
+          '<span><span class="d-title">' + formatDateLabel(dateIso) + '</span><br>' +
+          '<span class="d-meta">' + list.length + ' pedido' + (list.length!==1?'s':'') + ' · ' + formatMoney(total) + '</span></span>' +
+          '<span class="chevron">▾</span>' +
+        '</button>' +
+        '<div class="day-body" id="' + groupId + '">' +
+          '<table><thead><tr><th>Nº</th><th>Horário</th><th>Cliente</th><th>Pedido</th><th>Valor</th><th>Forma</th><th>Pagamento</th><th>Status</th><th></th></tr></thead><tbody>' +
+          list.map(function(o){
+            var statusClass = o.status === 'Concluído' ? 'concluido' : 'pendente';
+            var paidClass = o.paid ? 'pago' : 'pendente';
+            return '<tr>' +
+              '<td class="col-num" data-label="Nº">#' + o.number + '</td>' +
+              '<td class="col-time" data-label="Horário">' + o.time + '</td>' +
+              '<td class="col-customer" data-label="Cliente">' +
+                (o.customer ? '<span class="customer-name">' + escapeHtml(o.customer) + '</span>' : '<span class="customer-name empty">—</span>') +
+              '</td>' +
+              '<td class="col-product" data-label="Pedido">' + escapeHtml(o.product) +
+                (o.note ? '<span class="note">' + escapeHtml(o.note) + '</span>' : '') + '</td>' +
+              '<td class="col-value" data-label="Valor">' + formatMoney(o.value) + '</td>' +
+              '<td class="col-pay" data-label="Forma"><span class="pay-pill">' + o.payment + '</span></td>' +
+              '<td class="col-paid" data-label="Pagamento"><span class="paid-btn ' + paidClass + '" style="cursor:default;">' +
+                (o.paid ? '✓ Pago' : '● Pendente') + '</span></td>' +
+              '<td class="col-status" data-label="Status"><span class="status-btn ' + statusClass + '" style="cursor:default;">' +
+                (o.status === 'Concluído' ? '✓ Concluído' : '● Pendente') + '</span></td>' +
+              '<td class="col-actions"><button type="button" class="icon-btn" data-print="' + o.id + '" title="Imprimir nota do cliente">🖨️</button></td>' +
+              '</tr>';
+          }).join('') +
+          '</tbody></table>' +
+        '</div>' +
+      '</div>';
+    });
+
+    container.innerHTML = html;
+
+    container.querySelectorAll('[data-day]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var body = document.getElementById(btn.getAttribute('data-day'));
+        var isOpen = body.classList.contains('open');
+        body.classList.toggle('open', !isOpen);
+        btn.classList.toggle('open', !isOpen);
+      });
+    });
+    container.querySelectorAll('[data-print]').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        printOrderReceipt(btn.getAttribute('data-print'));
+      });
+    });
+  }
+
+  document.getElementById('btnHistory').addEventListener('click', function(){
+    document.getElementById('viewToday').style.display = 'none';
+    document.getElementById('viewHistory').style.display = 'block';
+    renderHistory();
+  });
+  document.getElementById('btnBackToday').addEventListener('click', function(){
+    document.getElementById('viewHistory').style.display = 'none';
+    document.getElementById('viewToday').style.display = 'block';
+    renderToday();
+  });
+
+  // ---------- Impressão ----------
+  function printOrderReceipt(id){
+    var o = orders.find(function(x){ return x.id === id; });
+    if(!o) return;
+
+    var dateLabel = formatDateLabel(o.date);
+    var html = '<div class="receipt">' +
+      '<h2>Açaí & Sorvetes</h2>' +
+      '<div class="r-sub">Pedido #' + o.number + ' · ' + dateLabel + ' às ' + o.time + '</div>' +
+      '<hr>' +
+      (o.customer ? '<div class="r-row"><span class="r-label">Cliente</span><span>' + escapeHtml(o.customer) + '</span></div>' : '') +
+      '<div class="r-product">' + escapeHtml(o.product) +
+        (o.note ? '<span class="r-note">Obs: ' + escapeHtml(o.note) + '</span>' : '') +
+      '</div>' +
+      '<hr>' +
+      '<div class="r-row"><span class="r-label">Forma de pagamento</span><span>' + o.payment + '</span></div>' +
+      '<div class="r-row"><span class="r-label">Situação</span><span>' + (o.paid ? 'Pago' : 'Pendente') + '</span></div>' +
+      '<div class="r-row r-total"><span>Total</span><span>' + formatMoney(o.value) + '</span></div>' +
+      '<hr>' +
+      '<div class="r-footer">Obrigado pela preferência!</div>' +
+      '</div>';
+
+    document.getElementById('printArea').innerHTML = html;
+    window.print();
+  }
+
+  function printDailyReport(){
+    var iso = todayISO();
+    var list = orders.filter(function(o){ return o.date === iso; }).sort(function(a,b){ return a.number - b.number; });
+
+    var totalGeral = 0, totalPago = 0, totalPendente = 0;
+    var porForma = { 'Pix': 0, 'Dinheiro': 0, 'Cartão': 0 };
+    var concluidos = 0, pendentesStatus = 0;
+
+    list.forEach(function(o){
+      totalGeral += Number(o.value);
+      if(o.paid){ totalPago += Number(o.value); } else { totalPendente += Number(o.value); }
+      if(porForma[o.payment] !== undefined){ porForma[o.payment] += Number(o.value); }
+      if(o.status === 'Concluído'){ concluidos++; } else { pendentesStatus++; }
+    });
+
+    var rowsHtml = list.map(function(o){
+      return '<tr>' +
+        '<td>#' + o.number + '</td>' +
+        '<td>' + o.time + '</td>' +
+        '<td>' + escapeHtml(o.customer || '—') + '</td>' +
+        '<td>' + escapeHtml(o.product) + (o.note ? ' (' + escapeHtml(o.note) + ')' : '') + '</td>' +
+        '<td>' + formatMoney(o.value) + '</td>' +
+        '<td>' + o.payment + '</td>' +
+        '<td>' + (o.paid ? 'Pago' : 'Pendente') + '</td>' +
+        '<td>' + o.status + '</td>' +
+        '</tr>';
+    }).join('');
+
+    var html = '<div class="report">' +
+      '<h2>Relatório do dia</h2>' +
+      '<div class="r-sub">' + formatDateLabel(iso) + ' · ' + list.length + ' pedido' + (list.length!==1?'s':'') + '</div>' +
+      '<table><thead><tr>' +
+        '<th>Nº</th><th>Horário</th><th>Cliente</th><th>Pedido</th><th>Valor</th><th>Forma</th><th>Pagamento</th><th>Status</th>' +
+      '</tr></thead><tbody>' +
+      (rowsHtml || '<tr><td colspan="8">Nenhum pedido hoje.</td></tr>') +
+      '</tbody></table>' +
+      '<div class="summary">' +
+        '<div class="s-row"><span>Pix</span><span>' + formatMoney(porForma['Pix']) + '</span></div>' +
+        '<div class="s-row"><span>Dinheiro</span><span>' + formatMoney(porForma['Dinheiro']) + '</span></div>' +
+        '<div class="s-row"><span>Cartão</span><span>' + formatMoney(porForma['Cartão']) + '</span></div>' +
+        '<div class="s-row"><span>Total pago</span><span>' + formatMoney(totalPago) + '</span></div>' +
+        '<div class="s-row"><span>Total a receber (pendente)</span><span>' + formatMoney(totalPendente) + '</span></div>' +
+        '<div class="s-row"><span>Pedidos concluídos / pendentes</span><span>' + concluidos + ' / ' + pendentesStatus + '</span></div>' +
+        '<div class="s-row grand"><span>Total vendido</span><span>' + formatMoney(totalGeral) + '</span></div>' +
+      '</div>' +
+      '</div>';
+
+    document.getElementById('printArea').innerHTML = html;
+    window.print();
+  }
+
+  document.getElementById('btnPrintReport').addEventListener('click', printDailyReport);
+
+  // ---------- Form / Modal ----------
+  var overlay = document.getElementById('overlay');
+  var form = document.getElementById('orderForm');
+
+  function openForm(id){
+    editingId = id || null;
+    pendingDeleteId = null;
+    document.getElementById('formError').classList.remove('show');
+
+    if(editingId){
+      var o = orders.find(function(x){ return x.id === editingId; });
+      document.getElementById('modalTitle').textContent = 'Editar pedido #' + o.number;
+      document.getElementById('modalSub').textContent = 'Altere os dados e salve.';
+      document.getElementById('fCustomer').value = o.customer || '';
+      document.getElementById('fProduct').value = o.product;
+      document.getElementById('fValue').value = centsToDisplay(Math.round(o.value * 100));
+      document.getElementById('fNote').value = o.note || '';
+      selectedPayment = o.payment;
+      selectedPaid = !!o.paid;
+    } else {
+      document.getElementById('modalTitle').textContent = 'Novo pedido';
+      document.getElementById('modalSub').textContent = 'Preencha e salve — leva só alguns segundos.';
+      document.getElementById('fCustomer').value = '';
+      document.getElementById('fProduct').value = '';
+      document.getElementById('fValue').value = centsToDisplay(0);
+      document.getElementById('fNote').value = '';
+      selectedPayment = null;
+      selectedPaid = true;
+    }
+    updatePaymentButtons();
+    updatePaidButtons();
+    overlay.classList.add('open');
+    setTimeout(function(){ document.getElementById('fProduct').focus(); }, 50);
+  }
+
+  function closeForm(){
+    overlay.classList.remove('open');
+    editingId = null;
+  }
+
+  function updatePaymentButtons(){
+    document.querySelectorAll('#payOptions .pay-opt').forEach(function(btn){
+      var active = btn.getAttribute('data-value') === selectedPayment;
+      btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function updatePaidButtons(){
+    document.querySelectorAll('#paidOptions .pay-opt').forEach(function(btn){
+      var btnValue = btn.getAttribute('data-paid') === 'true';
+      btn.setAttribute('aria-pressed', btnValue === selectedPaid ? 'true' : 'false');
+    });
+  }
+
+  document.querySelectorAll('#payOptions .pay-opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      selectedPayment = btn.getAttribute('data-value');
+      updatePaymentButtons();
+    });
+  });
+
+  document.querySelectorAll('#paidOptions .pay-opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      selectedPaid = btn.getAttribute('data-paid') === 'true';
+      updatePaidButtons();
+    });
+  });
+
+  var fValueInput = document.getElementById('fValue');
+  fValueInput.addEventListener('input', function(){
+    var cents = digitsToCents(fValueInput.value);
+    fValueInput.value = centsToDisplay(cents);
+    var pos = fValueInput.value.length;
+    requestAnimationFrame(function(){
+      try{ fValueInput.setSelectionRange(pos, pos); }catch(e){}
+    });
+  });
+  fValueInput.addEventListener('focus', function(){
+    var pos = fValueInput.value.length;
+    requestAnimationFrame(function(){
+      try{ fValueInput.setSelectionRange(pos, pos); }catch(e){}
+    });
+  });
+
+  document.getElementById('btnNewOrder').addEventListener('click', function(){ openForm(null); });
+  document.getElementById('btnCancelForm').addEventListener('click', closeForm);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeForm(); });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var customer = document.getElementById('fCustomer').value.trim();
+    var product = document.getElementById('fProduct').value.trim();
+    var note = document.getElementById('fNote').value.trim();
+    var cents = digitsToCents(document.getElementById('fValue').value);
+    var value = cents / 100;
+
+    if(!product || cents <= 0 || !selectedPayment){
+      document.getElementById('formError').classList.add('show');
+      return;
+    }
+    document.getElementById('formError').classList.remove('show');
+
+    if(editingId){
+      var o = orders.find(function(x){ return x.id === editingId; });
+      o.customer = customer;
+      o.product = product;
+      o.value = value;
+      o.payment = selectedPayment;
+      o.paid = selectedPaid;
+      o.note = note;
+    } else {
+      var iso = todayISO();
+      var todays = orders.filter(function(x){ return x.date === iso; });
+      var maxNum = todays.reduce(function(m,x){ return Math.max(m, x.number); }, 0);
+      orders.push({
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+        number: maxNum + 1,
+        date: iso,
+        time: timeNow(),
+        customer: customer,
+        product: product,
+        value: value,
+        payment: selectedPayment,
+        paid: selectedPaid,
+        note: note,
+        status: 'Pendente'
+      });
+    }
+
+    saveOrders().then(function(){
+      closeForm();
+      renderCurrentView();
+    });
+  });
+
+  // ---------- Init ----------
+  loadOrders();
+})();
+</script>
+</body>
+</html>
