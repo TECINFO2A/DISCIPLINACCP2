@@ -149,10 +149,12 @@ header{background:#fff;border-bottom:3px solid var(--red);box-shadow:0 2px 14px 
 .btn-add-sz{width:100%;border:0;border-radius:6px;background:var(--green);color:#fff;padding:13px;font-size:.82rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
 .btn-add-sz:disabled{opacity:.45;cursor:not-allowed}
 .meio-toggle{background:#d4a01714;border:1.5px solid #d4a0174d;border-radius:10px;padding:13px;margin-bottom:14px}
-.meio-check{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:.8rem;font-weight:700}
-.meio-check input{width:17px;height:17px;accent-color:var(--green);cursor:pointer}
-.meio-check i{color:var(--gold)}
-.meio-second{margin-top:11px}
+.meio-title{font-size:.62rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.frac-chips{display:flex;gap:7px;margin-bottom:11px}
+.fchip{flex:1;border:1.5px solid #d4a01766;background:#fff;border-radius:8px;padding:9px 6px;text-align:center;font-size:.73rem;font-weight:800;cursor:pointer;text-transform:uppercase}
+.fchip.sel{background:var(--gold);border-color:var(--gold);color:#111}
+.flavor-slots{display:flex;flex-direction:column;gap:8px}
+.flavor-slot-lbl{display:block;font-size:.63rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--gray);margin-bottom:4px}
 .meio-second select{cursor:pointer}
 
 /* ---------- Toast ---------- */
@@ -233,11 +235,13 @@ header{background:#fff;border-bottom:3px solid var(--red);box-shadow:0 2px 14px 
     </div>
     <div class="sz-bd">
       <div class="meio-toggle">
-        <label class="meio-check"><input type="checkbox" id="meio-toggle-chk"><span><i class="fa-solid fa-circle-half-stroke"></i> Fazer meio a meio (2 sabores)</span></label>
-        <div class="meio-second" id="meio-second-wrap" style="display:none">
-          <span class="fl-lbl">2ª metade <span class="req">*</span></span>
-          <select class="fl-inp" id="meio-second-select"></select>
+        <div class="meio-title"><i class="fa-solid fa-circle-half-stroke"></i> Quantos sabores?</div>
+        <div class="frac-chips" id="frac-chips">
+          <button class="fchip sel" type="button" data-frac="1">1 sabor</button>
+          <button class="fchip" type="button" data-frac="2">2 sabores</button>
+          <button class="fchip" type="button" data-frac="3">3 sabores</button>
         </div>
+        <div class="flavor-slots" id="flavor-slots"></div>
       </div>
       <div class="size-grid" id="size-grid"></div>
       <div class="borda-sec">
@@ -275,7 +279,7 @@ const state={
   addr:{rua:"",numero:"",bairro:"",ref:""},
   pagamento:"",troco:"",trocoCustom:"",
   obs:"",
-  modal:{name:"",size:"",price:0,borda:"Sem borda",isMeio:false,flavor2:""}
+  modal:{name:"",size:"",price:0,borda:"Sem borda",fracoes:1,flavor2:"",flavor3:""}
 };
 
 const money=v=>"R$ "+Number(v).toFixed(2).replace(".",","),escapeHtml=v=>String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])),qs=s=>document.querySelector(s);
@@ -315,38 +319,77 @@ function renderSizeOptions(){
 }
 
 /* ---------- Size modal ---------- */
-function populateMeioSecondSelect(excludeName){
-  const opts=allFlavorNames.filter(n=>n!==excludeName).map(n=>`<option value="${escapeHtml(n)}">${escapeHtml(n)}</option>`).join("");
-  qs("#meio-second-select").innerHTML=`<option value="">Selecione o sabor...</option>`+opts;
+function flavorOptionsHTML(excludeNames,selected){
+  const opts=allFlavorNames.filter(n=>!excludeNames.includes(n)||n===selected).map(n=>`<option value="${escapeHtml(n)}" ${n===selected?"selected":""}>${escapeHtml(n)}</option>`).join("");
+  return `<option value="">Selecione o sabor...</option>`+opts;
 }
+
+function renderFlavorSlots(){
+  const wrap=qs("#flavor-slots");
+  const n=state.modal.fracoes;
+  if(n<=1){wrap.innerHTML="";return}
+  const baseName=state.modal.name;
+  let html="";
+  const ordinal=["1ª","2ª","3ª"];
+  const excl2=[baseName,state.modal.flavor3].filter(Boolean);
+  html+=`<div><span class="flavor-slot-lbl">${ordinal[1]} fração <span class="req">*</span></span><select class="fl-inp" id="flavor-select-2">${flavorOptionsHTML(excl2,state.modal.flavor2)}</select></div>`;
+  if(n===3){
+    const excl3=[baseName,state.modal.flavor2].filter(Boolean);
+    html+=`<div style="margin-top:8px"><span class="flavor-slot-lbl">${ordinal[2]} fração <span class="req">*</span></span><select class="fl-inp" id="flavor-select-3">${flavorOptionsHTML(excl3,state.modal.flavor3)}</select></div>`;
+  }
+  wrap.innerHTML=html;
+  const sel2=qs("#flavor-select-2");
+  if(sel2)sel2.addEventListener("change",e=>{state.modal.flavor2=e.target.value;updateSzPreview()});
+  const sel3=qs("#flavor-select-3");
+  if(sel3)sel3.addEventListener("change",e=>{state.modal.flavor3=e.target.value;updateSzPreview()});
+}
+
 function openSzModal(name){
-  state.modal={name,size:"",price:0,borda:"Sem borda",isMeio:false,flavor2:""};
+  state.modal={name,size:"",price:0,borda:"Sem borda",fracoes:1,flavor2:"",flavor3:""};
   qs("#sz-pname").textContent=name;
   document.querySelectorAll(".sopt").forEach(i=>i.classList.remove("sel"));
   document.querySelectorAll(".bchip").forEach(i=>i.classList.toggle("sel",i.dataset.borda==="Sem borda"));
-  qs("#meio-toggle-chk").checked=false;
-  qs("#meio-second-wrap").style.display="none";
-  populateMeioSecondSelect(name);
-  qs("#meio-second-select").value="";
+  document.querySelectorAll("#frac-chips .fchip").forEach(i=>i.classList.toggle("sel",i.dataset.frac==="1"));
+  renderFlavorSlots();
   updateSzPreview();
   qs("#sz-overlay").classList.add("open");
   qs(".sz-bd").scrollTop=0;
 }
 function closeSzModal(){qs("#sz-overlay").classList.remove("open")}
+
 function updateSzPreview(){
   const extra=state.modal.borda==="Sem borda"?0:5,btn=qs("#btn-add-sz");
   if(!state.modal.size){qs("#sz-prev").textContent="Selecione um tamanho acima";btn.disabled=true;return}
-  if(state.modal.isMeio&&!state.modal.flavor2){qs("#sz-prev").textContent="Escolha o segundo sabor da meio a meio";btn.disabled=true;return}
-  const label=state.modal.isMeio?`1/2 <strong>${escapeHtml(state.modal.name)}</strong> + 1/2 <strong>${escapeHtml(state.modal.flavor2)}</strong>`:`Pizza <strong>${state.modal.size}</strong>`;
-  const sizeTxt=state.modal.isMeio?` - Tamanho <strong>${state.modal.size}</strong>`:"";
+  const n=state.modal.fracoes;
+  if(n>=2&&!state.modal.flavor2){qs("#sz-prev").textContent="Escolha o segundo sabor";btn.disabled=true;return}
+  if(n===3&&!state.modal.flavor3){qs("#sz-prev").textContent="Escolha o terceiro sabor";btn.disabled=true;return}
+  let label;
+  if(n===1){
+    label=`Pizza <strong>${state.modal.size}</strong>`;
+  }else if(n===2){
+    label=`1/2 <strong>${escapeHtml(state.modal.name)}</strong> + 1/2 <strong>${escapeHtml(state.modal.flavor2)}</strong>`;
+  }else{
+    label=`1/3 <strong>${escapeHtml(state.modal.name)}</strong> + 1/3 <strong>${escapeHtml(state.modal.flavor2)}</strong> + 1/3 <strong>${escapeHtml(state.modal.flavor3)}</strong>`;
+  }
+  const sizeTxt=n>1?` - Tamanho <strong>${state.modal.size}</strong>`:"";
   qs("#sz-prev").innerHTML=`${label}${sizeTxt}${extra?` + Borda ${escapeHtml(state.modal.borda)}`:""} = <strong>${money(state.modal.price+extra)}</strong>`;
   btn.disabled=false;
 }
+
 function confirmSz(){
   if(!state.modal.size)return;
-  if(state.modal.isMeio&&!state.modal.flavor2)return;
+  const n=state.modal.fracoes;
+  if(n>=2&&!state.modal.flavor2)return;
+  if(n===3&&!state.modal.flavor3)return;
   const extra=state.modal.borda==="Sem borda"?0:5,bordaTxt=extra?` (Borda ${state.modal.borda})`:"";
-  const name=state.modal.isMeio?`1/2 ${state.modal.name} + 1/2 ${state.modal.flavor2} - ${state.modal.size}${bordaTxt}`:`${state.modal.name} - ${state.modal.size}${bordaTxt}`;
+  let name;
+  if(n===1){
+    name=`${state.modal.name} - ${state.modal.size}${bordaTxt}`;
+  }else if(n===2){
+    name=`1/2 ${state.modal.name} + 1/2 ${state.modal.flavor2} - ${state.modal.size}${bordaTxt}`;
+  }else{
+    name=`1/3 ${state.modal.name} + 1/3 ${state.modal.flavor2} + 1/3 ${state.modal.flavor3} - ${state.modal.size}${bordaTxt}`;
+  }
   addToCart(name,state.modal.price+extra);
   closeSzModal();
 }
@@ -527,14 +570,6 @@ function init(){
   renderOrder();
   tickClock();setInterval(tickClock,15000);
 
-  qs("#meio-toggle-chk").addEventListener("change",e=>{
-    state.modal.isMeio=e.target.checked;
-    qs("#meio-second-wrap").style.display=state.modal.isMeio?"block":"none";
-    if(!state.modal.isMeio){state.modal.flavor2="";qs("#meio-second-select").value=""}
-    updateSzPreview();
-  });
-  qs("#meio-second-select").addEventListener("change",e=>{state.modal.flavor2=e.target.value;updateSzPreview()});
-
   document.addEventListener("click",e=>{
     const pizzaRow=e.target.closest(".item-row[data-pizza]");
     if(pizzaRow&&e.target.closest(".btn-tam")){openSzModal(pizzaRow.dataset.pizza);return}
@@ -542,6 +577,17 @@ function init(){
     if(tabBtn){showTab(tabBtn.dataset.tab);return}
     const drinkBtn=e.target.closest("[data-drink]");
     if(drinkBtn){addToCart(drinkBtn.dataset.drink,drinkBtn.dataset.price);return}
+    const fracBtn=e.target.closest("[data-frac]");
+    if(fracBtn){
+      document.querySelectorAll("#frac-chips .fchip").forEach(i=>i.classList.remove("sel"));
+      fracBtn.classList.add("sel");
+      state.modal.fracoes=Number(fracBtn.dataset.frac);
+      if(state.modal.fracoes<3)state.modal.flavor3="";
+      if(state.modal.fracoes<2)state.modal.flavor2="";
+      renderFlavorSlots();
+      updateSzPreview();
+      return;
+    }
     const sizeBtn=e.target.closest("[data-size]");
     if(sizeBtn){document.querySelectorAll(".sopt").forEach(i=>i.classList.remove("sel"));sizeBtn.classList.add("sel");state.modal.size=sizeBtn.dataset.size;state.modal.price=Number(sizeBtn.dataset.price);updateSzPreview();return}
     const bordaBtn=e.target.closest("[data-borda]");
