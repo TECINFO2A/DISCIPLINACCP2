@@ -1,40 +1,38 @@
+#Crie um cadastro simples de alunos usando uma lista e um menu de inclusão, listagem e remoção.
+
 alunos = []
 
 while True:
-    print("\n-------- CADASTRO DE ALUNOS --------")
-    print("(1) Incluir aluno")
-    print("(2) Listar alunos")
-    print("(3) Remover aluno")
-    print("(4) Sair")
+    print("-------------OPÇÕES---------------")
+    print("Digite (1) para INCLUSÃO DE ALUNOS")
+    print("Digite (2) para LISTAR ALUNOS")
+    print("Digite (3) para REMOVER ALUNOS")
+    print("Digite (4) para SAIR")
 
-    opcao = int(input("Digite uma opção: "))
+    op = int(input("Digite a opção desejada: "))
 
-    if opcao == 1:
-        nome = input("Digite o nome do aluno: ")
-        alunos.append(nome)
-        print(f"Aluno {nome} cadastrado com sucesso!")
+    if op == 1:
+        aluno = input("Digite o nome do aluno: ")
+        alunos.append(aluno)
+        print(f"ALUNO {aluno} INCLUIDO COM SUCESSO")
 
-    elif opcao == 2:
-        print("\n-------- ALUNOS CADASTRADOS --------")
-
-        if len(alunos) == 0:
-            print("Nenhum aluno cadastrado.")
+    elif op == 2:
+        if alunos == 0:
+            print("NENHUM ALUNO CADASTRADO")
         else:
-            for aluno in alunos:
-                print(aluno)
+            print(alunos)
 
-    elif opcao == 3:
-        nome = input("Digite o nome do aluno que deseja remover: ")
-
-        if nome in alunos:
-            alunos.remove(nome)
-            print(f"Aluno {nome} removido com sucesso!")
+    elif op == 3:
+        aluno = input("Digite o nome do aluno: ")
+        if aluno in alunos:
+            alunos.remove(aluno)
+            print(f"ALUNO {aluno} REMOVIDO COM SUCESSO!")
         else:
-            print("Aluno não encontrado.")
+            print("ALUNO NÃO ENCONTRADO!")
 
-    elif opcao == 4:
-        print("Saindo do sistema...")
+    elif op == 4:
+        print("SAINDO DO SISTEMA!")
         break
 
     else:
-        print("Opção inválida!")
+        print("OPÇÃO INVÁLIDA, DIGITE OUTRA OPÇÃO NOVAMENTE!")
