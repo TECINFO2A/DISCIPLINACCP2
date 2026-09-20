@@ -1,0 +1,7 @@
+arquivo = open("dados.txt", "w")
+arquivo.write("Pedro\n")
+arquivo.write("João\n")
+arquivo.write("Kleyton\n")
+arquivo.write("Henrique\n")
+arquivo.write("Josemir\n")
+arquivo.close()
