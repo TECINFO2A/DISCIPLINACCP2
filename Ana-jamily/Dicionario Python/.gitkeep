@@ -1,0 +1,6 @@
+with open("alunos.txt", "w", encoding="utf-8") as ficheiro:
+    ficheiro.write("Ana\n")
+    ficheiro.write("Bruno\n")
+    ficheiro.write("Carlos\n")
+    ficheiro.write("Diana\n")
+    ficheiro.write("Eduardo\n")
