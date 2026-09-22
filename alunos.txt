@@ -1,0 +1,9 @@
+Ana;20;ADS;8.5
+João;22;ADS;7.5
+Maria;19;Informática;9
+Pedro;21;Informática;8
+Carlos;20;ADS;7
+Samuel;23;Computação;9
+Miguel;18;Informática;8
+Aline;18;Informática;8samuel;45;informatica;12
+luan;18;regular;9
